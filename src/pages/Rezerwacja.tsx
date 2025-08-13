@@ -64,11 +64,11 @@ const Rezerwacja = () => {
                     </p>
                   </div>
                   
-                  <div className="min-h-[600px]">
+                  <div className="w-full">
                     <iframe 
                       id="ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa" 
                       className="w-full border-none p-0 rounded-lg" 
-                      style={{ height: "100px" }}
+                      style={{ height: "800px", minHeight: "600px" }}
                       src="https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%231f8fe6%22%2C%22color_bg%22%3A%22%23FFFFFF%22%2C%22color_panel_header%22%3A%22%23ffffff%22%2C%22color_panel_body%22%3A%22%23FFFFFF%22%2C%22rounded_corners%22%3A%223%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=pl"
                     />
                   </div>
