@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import heroImage1 from "@/assets/hero-cottages.jpg";
-import heroImage2 from "@/assets/hero-cottage-1.jpg";
-import heroImage3 from "@/assets/hero-cottage-2.jpg";
+import heroImage1 from "@/assets/herodron.jpg";
+import heroImage2 from "@/assets/gorapan.jpg";
+import heroImage3 from "@/assets/dalekowidok.jpg";
 const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [progress, setProgress] = useState(0);
