@@ -14,11 +14,19 @@ const Galeria = () => {
     window.scrollTo(0, 0);
   }, []);
   // Placeholder images - replace these URLs with actual cottage photos
-  const galleryImages = Array.from({ length: 24 }, (_, i) => ({
-    id: i + 1,
-    src: `https://picsum.photos/400/300?random=${i + 1}`,
-    alt: `Domek letniskowy ${i + 1}`
-  }));
+  const galleryImages = [
+  {
+    id: 1,
+    src: "@/assets/hero-forest.jpg",
+    alt: "Opis zdjęcia 1"
+  },
+  {
+    id: 2,
+    src: "ścieżka/do/twojego/zdjęcia2.jpg", 
+    alt: "Opis zdjęcia 2"
+  },
+  // ... dodaj więcej zdjęć
+];
 
   return (
     <div className="min-h-screen bg-background">
