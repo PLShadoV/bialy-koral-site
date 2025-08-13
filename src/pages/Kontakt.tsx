@@ -10,7 +10,9 @@ import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import heroNature from "@/assets/hero-nature.jpg";
 
 const Kontakt = () => {
+  console.log("Kontakt component rendered");
   useEffect(() => {
+    console.log("Kontakt useEffect - scrolling to top");
     window.scrollTo(0, 0);
   }, []);
 

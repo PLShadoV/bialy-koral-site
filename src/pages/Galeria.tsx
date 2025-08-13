@@ -8,7 +8,9 @@ import { useEffect } from "react";
 import heroForest from "@/assets/hero-forest.jpg";
 
 const Galeria = () => {
+  console.log("Galeria component rendered");
   useEffect(() => {
+    console.log("Galeria useEffect - scrolling to top");
     window.scrollTo(0, 0);
   }, []);
   // Placeholder images - in real implementation these would be actual photos

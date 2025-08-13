@@ -12,6 +12,12 @@ import dogBeachImage from "@/assets/dog-beach.jpg";
 import bikeForestImage from "@/assets/bike-forest.jpg";
 
 const Home = () => {
+  console.log("Home component rendered");
+  useEffect(() => {
+    console.log("Home useEffect - scrolling to top");
+    window.scrollTo(0, 0);
+  }, []);
+  
   const amenities = [
     { icon: Tv, text: "TV + satelita" },
     { icon: Wifi, text: "Światłowód" },
@@ -23,9 +29,6 @@ const Home = () => {
     { icon: Wifi, text: "Bezpłatne Wi-Fi na terenie ośrodka" }
   ];
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div className="min-h-screen bg-background">

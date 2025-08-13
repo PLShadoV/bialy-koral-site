@@ -9,7 +9,9 @@ import { Calendar, Banknote } from "lucide-react";
 import heroBeach from "@/assets/hero-beach.jpg";
 
 const Cennik = () => {
+  console.log("Cennik component rendered");
   useEffect(() => {
+    console.log("Cennik useEffect - scrolling to top");
     window.scrollTo(0, 0);
   }, []);
 

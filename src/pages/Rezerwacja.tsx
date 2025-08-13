@@ -11,7 +11,9 @@ import { Calendar, Users, CheckCircle, Clock } from "lucide-react";
 import heroCoastal from "@/assets/hero-coastal.jpg";
 
 const Rezerwacja = () => {
+  console.log("Rezerwacja component rendered");
   useEffect(() => {
+    console.log("Rezerwacja useEffect - scrolling to top");
     window.scrollTo(0, 0);
   }, []);
   const benefits = [
