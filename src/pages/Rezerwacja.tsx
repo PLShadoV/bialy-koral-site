@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect } from "react";
 import { Calendar, Users, CheckCircle, Clock } from "lucide-react";
+import heroCoastal from "@/assets/hero-coastal.jpg";
 
 const Rezerwacja = () => {
   useEffect(() => {
@@ -29,12 +30,17 @@ const Rezerwacja = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="py-16 bg-ocean-gradient text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <section className="relative h-96 flex items-center justify-center overflow-hidden">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${heroCoastal})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
+          <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
               Rezerwacja
             </h1>
-            <p className="text-xl opacity-90 max-w-2xl mx-auto">
+            <p className="text-xl opacity-90 max-w-2xl mx-auto drop-shadow-md">
               Zarezerwuj jeden z naszych domków już dziś i ciesz się niezapomnianym wypoczynkiem nad morzem!
             </p>
           </div>
@@ -192,13 +198,10 @@ const Rezerwacja = () => {
                           • <strong>Check-out:</strong> do godziny 11:00
                         </p>
                         <p>
-                          • <strong>Zwierzęta:</strong> akceptowane po wcześniejszym zgłoszeniu
+                          • <strong>Zwierzęta:</strong> akceptowane za dodatkową opłatą 15 zł za dobę
                         </p>
                         <p>
                           • <strong>Płatność:</strong> gotówka lub przelew
-                        </p>
-                        <p>
-                          • <strong>Anulowanie:</strong> bezpłatne do 7 dni przed przyjazdem
                         </p>
                       </div>
                     </CardContent>
