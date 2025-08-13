@@ -4,9 +4,14 @@ import ContactSection from "@/components/sections/ContactSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { Calendar, Euro } from "lucide-react";
 
 const Cennik = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const pricing = [
     { period: "12.04–31.05", price: "280 zł" },
     { period: "01.06–15.06", price: "300 zł" },

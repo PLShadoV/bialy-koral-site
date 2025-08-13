@@ -4,8 +4,12 @@ import Features from "@/components/sections/Features";
 import ContactSection from "@/components/sections/ContactSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const Galeria = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // Placeholder images - in real implementation these would be actual photos
   const galleryImages = Array.from({ length: 24 }, (_, i) => ({
     id: i + 1,

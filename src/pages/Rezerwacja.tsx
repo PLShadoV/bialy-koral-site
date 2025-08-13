@@ -6,9 +6,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useEffect } from "react";
 import { Calendar, Users, CheckCircle, Clock } from "lucide-react";
 
 const Rezerwacja = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const benefits = [
     "Komfortowe domki dla maksymalnie 5 osób",
     "Pełne wyposażenie kuchenne",
