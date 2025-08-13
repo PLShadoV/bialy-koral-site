@@ -48,56 +48,58 @@ const Rezerwacja = () => {
           </div>
         </section>
         
-        {/* Reservation Form Section */}
+        {/* Reservation Form Section - Full Width */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                {/* Reservation Form */}
-                <Card className="shadow-ocean">
+            <div className="max-w-5xl mx-auto">
+              {/* Reservation Form */}
+              <Card className="shadow-ocean mb-16">
+                <CardContent className="p-8">
+                  <div className="text-center mb-8">
+                    <h2 className="text-3xl font-bold text-primary mb-4">
+                      Zarezerwuj jeden z domków już dziś!
+                    </h2>
+                    <p className="text-muted-foreground">
+                      Sprawdź dostępność i zarezerwuj swój pobyt
+                    </p>
+                  </div>
+                  
+                  <div className="min-h-[600px]">
+                    <iframe 
+                      id="ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa" 
+                      className="w-full border-none p-0 rounded-lg" 
+                      style={{ height: "100px" }}
+                      src="https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%231f8fe6%22%2C%22color_bg%22%3A%22%23FFFFFF%22%2C%22color_panel_header%22%3A%22%23ffffff%22%2C%22color_panel_body%22%3A%22%23FFFFFF%22%2C%22rounded_corners%22%3A%223%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=pl"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              {/* Benefits and Info - Two Columns Below */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Benefits */}
+                <Card className="shadow-soft">
                   <CardContent className="p-8">
-                    <div className="text-center mb-8">
-                      <h2 className="text-3xl font-bold text-primary mb-4">
-                        Zarezerwuj jeden z domków już dziś!
-                      </h2>
-                      <p className="text-muted-foreground">
-                        Sprawdź dostępność i zarezerwuj swój pobyt
-                      </p>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="bg-ocean-gradient p-3 rounded-full">
+                        <CheckCircle className="h-6 w-6 text-white" />
+                      </div>
+                      <h3 className="text-xl font-semibold">Co oferujemy</h3>
                     </div>
                     
-                    <div className="min-h-[600px]">
-                      <iframe 
-                        id="ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa" 
-                        className="w-full border-none p-0 rounded-lg" 
-                        style={{ height: "100px" }}
-                        src="https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%231f8fe6%22%2C%22color_bg%22%3A%22%23FFFFFF%22%2C%22color_panel_header%22%3A%22%23ffffff%22%2C%22color_panel_body%22%3A%22%23FFFFFF%22%2C%22rounded_corners%22%3A%223%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=pl"
-                      />
-                    </div>
+                    <ul className="space-y-3">
+                      {benefits.map((benefit, index) => (
+                        <li key={index} className="flex items-center gap-3">
+                          <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
+                          <span className="text-muted-foreground">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
                 
-                {/* Benefits and Info */}
+                {/* Info Cards */}
                 <div className="space-y-6">
-                  <Card className="shadow-soft">
-                    <CardContent className="p-8">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="bg-ocean-gradient p-3 rounded-full">
-                          <CheckCircle className="h-6 w-6 text-white" />
-                        </div>
-                        <h3 className="text-xl font-semibold">Co oferujemy</h3>
-                      </div>
-                      
-                      <ul className="space-y-3">
-                        {benefits.map((benefit, index) => (
-                          <li key={index} className="flex items-center gap-3">
-                            <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  
                   <Card className="shadow-soft">
                     <CardContent className="p-8">
                       <div className="flex items-center gap-4 mb-6">
