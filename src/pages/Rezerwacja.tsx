@@ -65,99 +65,14 @@ const Rezerwacja = () => {
                       </p>
                     </div>
                     
-                    <form className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="checkIn">Data przyjazdu</Label>
-                          <Input 
-                            id="checkIn" 
-                            type="date"
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="checkOut">Data wyjazdu</Label>
-                          <Input 
-                            id="checkOut" 
-                            type="date"
-                            className="mt-1"
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="guests">Liczba gości</Label>
-                        <Select>
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Wybierz liczbę gości" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="1">1 osoba</SelectItem>
-                            <SelectItem value="2">2 osoby</SelectItem>
-                            <SelectItem value="3">3 osoby</SelectItem>
-                            <SelectItem value="4">4 osoby</SelectItem>
-                            <SelectItem value="5">5 osób</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="firstName">Imię</Label>
-                          <Input 
-                            id="firstName" 
-                            placeholder="Twoje imię"
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="lastName">Nazwisko</Label>
-                          <Input 
-                            id="lastName" 
-                            placeholder="Twoje nazwisko"
-                            className="mt-1"
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="email">E-mail</Label>
-                        <Input 
-                          id="email" 
-                          type="email" 
-                          placeholder="twoj@email.pl"
-                          className="mt-1"
-                        />
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="phone">Telefon</Label>
-                        <Input 
-                          id="phone" 
-                          type="tel" 
-                          placeholder="+48 000 000 000"
-                          className="mt-1"
-                        />
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="pets">Pobyt z psami</Label>
-                        <Select>
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Czy planujesz pobyt z psami?" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="no">Nie</SelectItem>
-                            <SelectItem value="yes">Tak, z psami</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <Button variant="reserve" size="lg" className="w-full">
-                        <Calendar className="h-5 w-5 mr-2" />
-                        Sprawdź dostępność
-                      </Button>
-                    </form>
+                    <div className="min-h-[600px]">
+                      <iframe 
+                        id="ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa" 
+                        className="w-full border-none p-0 rounded-lg" 
+                        style={{ height: "100px" }}
+                        src="https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%231f8fe6%22%2C%22color_bg%22%3A%22%23FFFFFF%22%2C%22color_panel_header%22%3A%22%23ffffff%22%2C%22color_panel_body%22%3A%22%23FFFFFF%22%2C%22rounded_corners%22%3A%223%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=pl"
+                      />
+                    </div>
                   </CardContent>
                 </Card>
                 
@@ -238,5 +153,60 @@ const Rezerwacja = () => {
     </div>
   );
 };
+
+// Add the script for iframe communication
+if (typeof window !== 'undefined') {
+  const script = document.createElement('script');
+  script.textContent = `
+    try {
+      (function () {
+        var iframe = window.document.getElementById('ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa');
+        function raMessageReceiver(event) {
+          if (iframe) {
+            if (!event.data.sender || "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa" !== event.data.sender) {
+              return;
+            }
+            if (event.data.height) {
+              iframe.style.height = (event.data.height + 10) + "px";
+            }
+            if (event.data.event && event.data.event.name === "widget.scrollup.requested") {
+              try {
+                iframe.scrollIntoView({behavior: "smooth", block: "start"});
+              } catch (e) { }
+            }
+            if (event.data.event && event.data.event.name === "reservation.submit.success") {
+              console.log("reservation.submit.success", event.data.event.data.reservation);
+              var moneyTotal = event.data.event.data.reservation.moneyTotal;
+              var id = event.data.event.data.reservation.id;
+              window.gtag||(console.log("no gtag -- trying fallback "),window.dataLayer=window.dataLayer||[],window.gtag=function(){dataLayer.push(arguments)},Array.from(document.scripts).forEach(function(a){if(a.src.startsWith("https://www.googletagmanager.com/gtag/js")||a.src.startsWith("http://www.googletagmanager.com/gtag/js")){var g=new URL(a.src).searchParams.get("id");console.log("gtag found: "+g),gtag("js",new Date),gtag("config",g)}}));
+              gtag("event", "purchase", { transaction_id: id, value: moneyTotal / 100, currency: "PLN" });
+              console.log("purchase event sent")
+            }
+            if (event.data.event && event.data.event.name === "reservation.variant-search.start") {
+              
+            }
+            if (event.data.event && event.data.event.name) {
+              console.log(event.data.event.name, event.data.event);
+            }
+          }
+        }
+        window.addEventListener("message", raMessageReceiver, false);
+        function setup() {
+          try {
+            iframe.contentWindow.postMessage({
+              location: window.location.toString(),
+              setup: { autoHeight: true, senderName: "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa" }
+            }, "*");
+          } catch (e) { }
+        }
+        setInterval(setup, 1000);
+        iframe.addEventListener("load", setup);
+      })();
+    } catch (e) {
+      console.error(e);
+    }
+  `;
+  document.head.appendChild(script);
+}
 
 export default Rezerwacja;
