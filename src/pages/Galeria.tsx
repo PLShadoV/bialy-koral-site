@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import heroForest from "@/assets/hero-forest.jpg";
+import domekfront from "@/assets/domekfront.jpg";
 
 const Galeria = () => {
   console.log("Galeria component rendered");
@@ -17,7 +18,7 @@ const Galeria = () => {
   const galleryImages = [
   {
     id: 1,
-    src: "/assets/domekfront.jpg",
+    src: "@/assets/domekfront.jpg",
     alt: "Opis zdjęcia 1"
   },
   {
