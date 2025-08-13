@@ -17,7 +17,7 @@ const Galeria = () => {
   const galleryImages = [
   {
     id: 1,
-    src: "@/assets/hero-forest.jpg",
+    src: "@/assets/domekfront.jpg",
     alt: "Opis zdjęcia 1"
   },
   {
