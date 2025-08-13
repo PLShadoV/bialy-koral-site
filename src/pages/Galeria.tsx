@@ -13,10 +13,10 @@ const Galeria = () => {
     console.log("Galeria useEffect - scrolling to top");
     window.scrollTo(0, 0);
   }, []);
-  // Placeholder images - in real implementation these would be actual photos
+  // Placeholder images - replace these URLs with actual cottage photos
   const galleryImages = Array.from({ length: 24 }, (_, i) => ({
     id: i + 1,
-    src: `https://images.unsplash.com/photo-${1500000000000 + i * 100000}?w=400&h=300&fit=crop&q=80`,
+    src: `https://picsum.photos/400/300?random=${i + 1}`,
     alt: `Domek letniskowy ${i + 1}`
   }));
 
@@ -45,6 +45,9 @@ const Galeria = () => {
         {/* Gallery Grid */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-primary text-center mb-12">
+              Zdjęcia domków
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
               {galleryImages.map((image) => (
                 <div 
