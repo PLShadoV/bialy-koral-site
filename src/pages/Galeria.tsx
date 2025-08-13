@@ -17,12 +17,12 @@ const Galeria = () => {
   const galleryImages = [
   {
     id: 1,
-    src: "@/assets/domekfront.jpg",
+    src: "/assets/domekfront.jpg",
     alt: "Opis zdjęcia 1"
   },
   {
     id: 2,
-    src: "ścieżka/do/twojego/zdjęcia2.jpg", 
+    src: "/assets/domekfront.jpg", 
     alt: "Opis zdjęcia 2"
   },
   // ... dodaj więcej zdjęć
