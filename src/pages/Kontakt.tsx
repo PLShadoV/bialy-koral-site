@@ -5,16 +5,81 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 import heroNature from "@/assets/hero-nature.jpg";
 
 const Kontakt = () => {
-  console.log("Kontakt component rendered");
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
+
   useEffect(() => {
-    console.log("Kontakt useEffect - scrolling to top");
     window.scrollTo(0, 0);
   }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.message) {
+      toast({
+        title: "Błąd",
+        description: "Proszę wypełnić wszystkie wymagane pola",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Wiadomość wysłana!",
+        description: "Dziękujemy za kontakt. Odpowiemy na Twoje pytanie najszybciej jak to możliwe."
+      });
+
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        message: ""
+      });
+
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Błąd",
+        description: "Wystąpił problem podczas wysyłania wiadomości. Spróbuj ponownie.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -74,58 +139,83 @@ const Kontakt = () => {
                       Napisz do nas
                     </h3>
                     
-                    <form className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="firstName">Imię</Label>
+                          <Label htmlFor="firstName">Imię *</Label>
                           <Input 
-                            id="firstName" 
+                            id="firstName"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
                             placeholder="Twoje imię"
                             className="mt-1"
+                            required
                           />
                         </div>
                         <div>
-                          <Label htmlFor="lastName">Nazwisko</Label>
+                          <Label htmlFor="lastName">Nazwisko *</Label>
                           <Input 
-                            id="lastName" 
+                            id="lastName"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
                             placeholder="Twoje nazwisko"
                             className="mt-1"
+                            required
                           />
                         </div>
                       </div>
                       
                       <div>
-                        <Label htmlFor="email">E-mail</Label>
+                        <Label htmlFor="email">E-mail *</Label>
                         <Input 
-                          id="email" 
-                          type="email" 
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
                           placeholder="twoj@email.pl"
                           className="mt-1"
+                          required
                         />
                       </div>
                       
                       <div>
                         <Label htmlFor="phone">Telefon</Label>
                         <Input 
-                          id="phone" 
-                          type="tel" 
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleInputChange}
                           placeholder="+48 000 000 000"
                           className="mt-1"
                         />
                       </div>
                       
                       <div>
-                        <Label htmlFor="message">Wiadomość</Label>
+                        <Label htmlFor="message">Wiadomość *</Label>
                         <Textarea 
-                          id="message" 
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
                           placeholder="Opisz swoje pytanie..."
                           rows={5}
                           className="mt-1"
+                          required
                         />
                       </div>
                       
-                      <Button variant="reserve" size="lg" className="w-full">
-                        Wyślij wiadomość
+                      <Button 
+                        type="submit" 
+                        variant="reserve" 
+                        size="lg" 
+                        className="w-full"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? "Wysyłanie..." : "Wyślij wiadomość"}
                       </Button>
                     </form>
                   </CardContent>
