@@ -27,6 +27,7 @@ const handler = async (req: Request): Promise<Response> => {
     const { firstName, lastName, email, phone, message }: ContactEmailRequest = await req.json();
 
     console.log("Sending contact email:", { firstName, lastName, email, phone });
+    console.log("Reply-to email will be set to:", email);
 
     const emailResponse = await resend.emails.send({
       from: "Formularz kontaktowy <onboarding@resend.dev>",
@@ -60,7 +61,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    console.log("Email sent successfully with reply-to:", email, "Response:", emailResponse);
 
     return new Response(
       JSON.stringify({ success: true, data: emailResponse }),
