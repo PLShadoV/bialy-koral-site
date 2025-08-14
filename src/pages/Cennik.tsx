@@ -43,7 +43,7 @@ const Cennik = () => {
               Cennik
             </h1>
             <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
-              Cennik sezonowy za domek na dobę. Rezerwuj już dziś!
+              Cennik sezonowy za domek za dobę. Rezerwuj już dziś!
             </p>
           </div>
         </section>
