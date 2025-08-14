@@ -114,7 +114,7 @@ const Rezerwacja = () => {
                           • <strong>Check-in:</strong> od godziny 15:00
                         </p>
                         <p>
-                          • <strong>Check-out:</strong> do godziny 11:00
+                          • <strong>Check-out:</strong> do godziny 10:00
                         </p>
                         <p>
                           • <strong>Zwierzęta:</strong> akceptowane za dodatkową opłatą 15 zł za dobę
