@@ -9,11 +9,13 @@ import { useEffect, useState } from "react";
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import heroNature from "@/assets/hero-nature.jpg";
 
 const Kontakt = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -55,10 +57,7 @@ const Kontakt = () => {
 
       if (error) throw error;
 
-      toast({
-        title: "Wiadomość wysłana!",
-        description: "Dziękujemy za kontakt. Odpowiemy na Twoje pytanie najszybciej jak to możliwe."
-      });
+      setShowSuccessModal(true);
 
       // Reset form
       setFormData({
@@ -82,6 +81,20 @@ const Kontakt = () => {
   };
 
   return (
+    <>
+      <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-xl font-bold text-primary">
+              ✅ Pomyślnie wysłano wiadomość
+            </DialogTitle>
+            <DialogDescription className="text-center text-lg pt-4">
+              Odpowiemy w ciągu 24 godzin, dziękujemy!
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+      
     <div className="min-h-screen bg-background">
       <Header />
       
@@ -329,6 +342,7 @@ const Kontakt = () => {
       
       <Footer />
     </div>
+    </>
   );
 };
 

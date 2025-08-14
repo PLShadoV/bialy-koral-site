@@ -29,7 +29,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Sending contact email:", { firstName, lastName, email, phone });
 
     const emailResponse = await resend.emails.send({
-      from: "Koral Rusinowo <onboarding@resend.dev>",
+      from: "Formularz kontaktowy <onboarding@resend.dev>",
       to: ["info@koralrusinowo.pl"],
       replyTo: email,
       subject: `Nowe pytanie od ${firstName} ${lastName}`,
