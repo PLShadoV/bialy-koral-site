@@ -23,7 +23,7 @@ const Cennik = () => {
     { period: "07.07–12.07", price: "470 zł" },
     { period: "13.07–17.08", price: "550 zł" },
     { period: "18.08–31.08", price: "450 zł" },
-    { period: "01.09–19.10", price: "320 zł" },
+    { period: "01.09–19.10", price: "270 zł" },
   ];
 
   return (
