@@ -16,13 +16,13 @@ const Cennik = () => {
   }, []);
 
   const pricing = [
-    { period: "12.04–31.05", price: "280 zł" },
-    { period: "01.06–15.06", price: "300 zł" },
-    { period: "16.06–29.06", price: "350 zł" },
-    { period: "30.06–06.07", price: "450 zł" },
-    { period: "07.07–12.07", price: "470 zł" },
-    { period: "13.07–17.08", price: "550 zł" },
-    { period: "18.08–31.08", price: "450 zł" },
+    { period: "11.04–31.05", price: "280 zł" },
+    { period: "01.06–14.06", price: "300 zł" },
+    { period: "15.06–28.06", price: "350 zł" },
+    { period: "29.06–05.07", price: "450 zł" },
+    { period: "06.07–12.07", price: "470 zł" },
+    { period: "13.07–16.08", price: "550 zł" },
+    { period: "17.08–31.08", price: "450 zł" },
     { period: "01.09–19.10", price: "270 zł" },
   ];
 
