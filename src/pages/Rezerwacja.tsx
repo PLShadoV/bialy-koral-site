@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect } from "react";
 import { Calendar, Users, CheckCircle, Clock } from "lucide-react";
-import { useScrollToTop } from "@/hooks/useScrollToTop";
 import heroCoastal from "@/assets/hero-coastal.jpg";
 
 const IFRAME_ID =
@@ -14,7 +13,10 @@ const SENDER =
   "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa";
 
 const Rezerwacja = () => {
-  useScrollToTop();
+  /* scroll to top – TAK JAK WSZĘDZIE */
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const benefits = [
     "Komfortowe domki dla maksymalnie 5 osób",
@@ -61,18 +63,16 @@ const Rezerwacja = () => {
     window.addEventListener("message", receiver);
 
     const setup = () => {
-      try {
-        iframe.contentWindow?.postMessage(
-          {
-            location: window.location.toString(),
-            setup: {
-              autoHeight: true,
-              senderName: SENDER,
-            },
+      iframe.contentWindow?.postMessage(
+        {
+          location: window.location.toString(),
+          setup: {
+            autoHeight: true,
+            senderName: SENDER,
           },
-          "*"
-        );
-      } catch {}
+        },
+        "*"
+      );
     };
 
     const interval = setInterval(setup, 1000);
@@ -86,7 +86,7 @@ const Rezerwacja = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background page-enter">
+    <div className="min-h-screen bg-background">
       <Header />
 
       <main>
