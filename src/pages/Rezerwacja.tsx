@@ -1,22 +1,17 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import ContactSection from "@/components/sections/ContactSection";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useEffect } from "react";
-import { Calendar, Users, CheckCircle, Clock } from "lucide-react";
+import { Users, Phone, Mail, CheckCircle, Clock } from "lucide-react";
 import heroCoastal from "@/assets/hero-coastal.jpg";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 
-const IFRAME_ID =
-  "ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa";
-const SENDER =
-  "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa";
+const IFRAME_ID = "ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa";
+const SENDER = "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa";
 
 const Rezerwacja = () => {
-  /* scroll to top – TAK JAK WSZĘDZIE */
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useScrollToTop();
 
   const benefits = [
     "Komfortowe domki dla maksymalnie 5 osób",
@@ -28,18 +23,14 @@ const Rezerwacja = () => {
     "Możliwość pobytu z psami",
   ];
 
-  /* iframe communication */
   useEffect(() => {
-    const iframe = document.getElementById(
-      IFRAME_ID
-    ) as HTMLIFrameElement | null;
-
+    const iframe = document.getElementById(IFRAME_ID) as HTMLIFrameElement | null;
     if (!iframe) return;
 
     const receiver = (event: MessageEvent) => {
       if (!event.data?.sender || event.data.sender !== SENDER) return;
 
-      if (event.data.height) {
+      if (event.data.height && iframe) {
         iframe.style.height = `${event.data.height + 10}px`;
       }
 
@@ -48,31 +39,32 @@ const Rezerwacja = () => {
       }
 
       if (event.data.event?.name === "reservation.submit.success") {
-        const reservation = event.data.event.data.reservation;
-        const moneyTotal = reservation.moneyTotal;
-        const id = reservation.id;
-
-        window.gtag?.("event", "purchase", {
-          transaction_id: id,
-          value: moneyTotal / 100,
-          currency: "PLN",
-        });
+        const r = event.data.event.data.reservation;
+        if (window.gtag) {
+          gtag("event", "purchase", {
+            transaction_id: r.id,
+            value: r.moneyTotal / 100,
+            currency: "PLN",
+          });
+        }
       }
     };
 
     window.addEventListener("message", receiver);
 
     const setup = () => {
-      iframe.contentWindow?.postMessage(
-        {
-          location: window.location.toString(),
-          setup: {
-            autoHeight: true,
-            senderName: SENDER,
+      try {
+        iframe.contentWindow?.postMessage(
+          {
+            location: window.location.toString(),
+            setup: {
+              autoHeight: true,
+              senderName: SENDER,
+            },
           },
-        },
-        "*"
-      );
+          "*"
+        );
+      } catch {}
     };
 
     const interval = setInterval(setup, 1000);
@@ -86,100 +78,105 @@ const Rezerwacja = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen page-enter font-quicksand bg-background">
       <Header />
 
-      <main>
-        {/* HERO */}
-        <section className="relative h-96 flex items-center justify-center overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroCoastal})` }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
-          <div className="relative z-10 text-center text-white px-4 max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Rezerwacja
-            </h1>
-            <p className="text-xl opacity-90">
-              Zarezerwuj jeden z naszych domków już dziś
+      {/* HERO */}
+      <section className="relative h-96 flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroCoastal})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
+        <div className="relative z-10 text-center text-white px-4 max-w-4xl">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Rezerwacja</h1>
+          <p className="text-xl opacity-90">Zarezerwuj jeden z naszych domków już dziś</p>
+        </div>
+      </section>
+
+      {/* MAIN */}
+      <main className="py-16">
+        <div className="container mx-auto px-4 max-w-6xl space-y-12">
+
+          {/* SYSTEM REZERWACJI */}
+          <div className="bg-white rounded-xl border border-primary/20 p-4 md:p-6">
+            <h2 className="text-2xl font-semibold text-center mb-4">
+              System rezerwacji online
+            </h2>
+            <p className="text-center text-muted-foreground mb-6">
+              Sprawdź dostępność i zarezerwuj swój pobyt w kilku krokach
             </p>
+
+            <iframe
+              id={IFRAME_ID}
+              title="Rezerwacja – widget RoomAdmin"
+              src="https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%231f8fe6%22%2C%22color_bg%22%3A%22%23FFFFFF%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=pl"
+              style={{ width: "100%", minHeight: "320px", border: "none" }}
+              scrolling="no"
+            />
           </div>
-        </section>
 
-        {/* FORM */}
-        <section className="py-16">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <Card className="shadow-ocean mb-16">
-              <CardContent className="p-8">
-                <div className="text-center mb-8">
-                  <h2 className="text-3xl font-bold text-primary mb-4">
-                    Sprawdź dostępność
-                  </h2>
-                  <p className="text-muted-foreground">
-                    Rezerwacja online w kilka minut
-                  </p>
-                </div>
+          {/* BENEFITS + INFORMACJE */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-                <iframe
-                  id={IFRAME_ID}
-                  className="w-full border-none rounded-lg"
-                  style={{ minHeight: "600px" }}
-                  src="https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%231f8fe6%22%2C%22color_bg%22%3A%22%23FFFFFF%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=pl"
-                />
+            {/* BENEFITS */}
+            <Card className="glass-card">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <CheckCircle className="text-primary" />
+                  Co oferujemy
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <ul className="space-y-2">
+                  {benefits.map((b, i) => (
+                    <li key={i} className="flex gap-2">
+                      <CheckCircle className="text-primary h-5 w-5" />
+                      <span className="text-muted-foreground">{b}</span>
+                    </li>
+                  ))}
+                </ul>
               </CardContent>
             </Card>
 
-            {/* BENEFITS */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <Card>
-                <CardContent className="p-8">
-                  <h3 className="text-xl font-semibold mb-6 flex items-center gap-3">
-                    <CheckCircle className="text-primary" />
-                    Co oferujemy
-                  </h3>
-                  <ul className="space-y-3">
-                    {benefits.map((b, i) => (
-                      <li key={i} className="flex gap-3">
-                        <CheckCircle className="text-primary h-5 w-5" />
-                        <span className="text-muted-foreground">{b}</span>
-                      </li>
-                    ))}
-                  </ul>
+            {/* INFORMACJE + KONTAKT */}
+            <div className="space-y-6">
+
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl">
+                    <Clock className="text-primary" />
+                    Informacje o pobycie
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <p>• Check-in: 15:00</p>
+                  <p>• Check-out: 10:00</p>
+                  <p>• Zwierzęta: 15 zł / doba</p>
+                  <p>• Płatność: gotówka / przelew</p>
                 </CardContent>
               </Card>
 
-              <div className="space-y-6">
-                <Card>
-                  <CardContent className="p-8">
-                    <h3 className="text-xl font-semibold mb-4 flex gap-3">
-                      <Clock className="text-primary" />
-                      Informacje
-                    </h3>
-                    <p>• Check-in: 15:00</p>
-                    <p>• Check-out: 10:00</p>
-                    <p>• Zwierzęta: 15 zł / doba</p>
-                    <p>• Płatność: gotówka / przelew</p>
-                  </CardContent>
-                </Card>
+              <Card className="glass-card text-center">
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-center gap-2 text-xl">
+                    <Phone className="text-primary h-6 w-6" />
+                    Kontakt
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Button asChild variant="outline" size="lg" className="w-full">
+                    <a href="tel:+48797392903">+48 797 392 903</a>
+                  </Button>
+                  <p className="text-muted-foreground">
+                    lub napisz: <a href="mailto:info@szafirrusinowo.pl" className="text-primary">info@szafirrusinowo.pl</a>
+                  </p>
+                </CardContent>
+              </Card>
 
-                <Card className="bg-accent/20 text-center">
-                  <CardContent className="p-8">
-                    <Users className="h-12 w-12 mx-auto mb-4 text-primary" />
-                    <h3 className="text-xl font-semibold mb-2">
-                      Potrzebujesz pomocy?
-                    </h3>
-                    <Button asChild variant="outline" size="lg">
-                      <a href="tel:+48797392903">+48 797 392 903</a>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
             </div>
           </div>
-        </section>
-
-        <ContactSection />
+        </div>
       </main>
 
       <Footer />
