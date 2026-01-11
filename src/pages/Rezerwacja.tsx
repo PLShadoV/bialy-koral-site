@@ -1,17 +1,25 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { useEffect } from "react";
 import { Users, Phone, Mail, CheckCircle, Clock } from "lucide-react";
 import heroCoastal from "@/assets/hero-coastal.jpg";
-import { useScrollToTop } from "@/hooks/useScrollToTop";
 
 const IFRAME_ID = "ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa";
 const SENDER = "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa";
 
 const Rezerwacja = () => {
-  useScrollToTop();
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const benefits = [
     "Komfortowe domki dla maksymalnie 5 osób",
@@ -23,6 +31,7 @@ const Rezerwacja = () => {
     "Możliwość pobytu z psami",
   ];
 
+  // Iframe communication
   useEffect(() => {
     const iframe = document.getElementById(IFRAME_ID) as HTMLIFrameElement | null;
     if (!iframe) return;
