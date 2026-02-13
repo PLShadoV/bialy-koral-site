@@ -16,8 +16,8 @@ const Cennik = () => {
   }, []);
 
   const pricing = [
-    { period: "11.04–31.05", price: "280 zł" },
     { period: "Wielkanoc 01.04-07.04", price: "350 zł" },
+    { period: "11.04–31.05", price: "280 zł" },
     { period: "Majówka 29.04 - 03.05", price: "350 zł" },
     { period: "01.06–14.06", price: "320 zł" },
     { period: "15.06–28.06", price: "350 zł" },
