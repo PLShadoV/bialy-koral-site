@@ -16,7 +16,11 @@ const insideModules = import.meta.glob("@/assets/gallery/inside/*.{jpg,jpeg,png,
   eager: true,
 });
 
-type ImgEntry = { id: number; src: string; alt: string };
+type ImgEntry = {
+  id: number;
+  src: string;
+  alt: string;
+};
 
 const makeImages = (
   modules: Record<string, unknown>,
@@ -48,7 +52,6 @@ const Galeria = () => {
 
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const [scale, setScale] = useState(1);
 
   const total = galleryImages.length;
   const current = useMemo(() => galleryImages[index], [index]);
@@ -56,7 +59,6 @@ const Galeria = () => {
   const openAt = (i: number) => {
     setIndex(i);
     setOpen(true);
-    setScale(1);
     document.body.style.overflow = "hidden";
   };
 
@@ -68,13 +70,11 @@ const Galeria = () => {
   const prev = useCallback(() => {
     if (!total) return;
     setIndex((i) => (i - 1 + total) % total);
-    setScale(1);
   }, [total]);
 
   const next = useCallback(() => {
     if (!total) return;
     setIndex((i) => (i + 1) % total);
-    setScale(1);
   }, [total]);
 
   useEffect(() => {
@@ -94,15 +94,11 @@ const Galeria = () => {
     };
   }, [open, close, prev, next]);
 
-  const onWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
-    const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    setScale((s) => Math.min(3, Math.max(0.5, s + delta)));
-  };
-
   const [touchX, setTouchX] = useState<number | null>(null);
 
-  const onTouchStart: React.TouchEventHandler<HTMLDivElement> = (e) =>
+  const onTouchStart: React.TouchEventHandler<HTMLDivElement> = (e) => {
     setTouchX(e.touches[0].clientX);
+  };
 
   const onTouchEnd: React.TouchEventHandler<HTMLDivElement> = (e) => {
     if (touchX === null) return;
@@ -126,6 +122,7 @@ const Galeria = () => {
             style={{ backgroundImage: `url(${heroForest})` }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
+
           <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
               Galeria
@@ -147,24 +144,12 @@ const Galeria = () => {
                 Dodaj zdjęcia do <code>src/assets/gallery/</code>.
               </p>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-20">
-                {outsideImages.map((image, i) => (
-                  <button
-                    key={`outside-${image.id}`}
-                    className="group relative overflow-hidden rounded-lg shadow-soft hover:shadow-ocean transition-all duration-300 aspect-square"
-                    onClick={() => openAt(i)}
-                    aria-label={`Otwórz podgląd: ${image.alt}`}
-                  >
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </button>
-                ))}
-              </div>
+              <GalleryGrid
+                images={outsideImages}
+                startIndex={0}
+                openAt={openAt}
+                className="mb-20"
+              />
             )}
 
             <h2 className="text-3xl font-bold text-primary text-center mb-12">
@@ -176,24 +161,12 @@ const Galeria = () => {
                 Dodaj zdjęcia do <code>src/assets/gallery/inside/</code>.
               </p>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
-                {insideImages.map((image, i) => (
-                  <button
-                    key={`inside-${image.id}`}
-                    className="group relative overflow-hidden rounded-lg shadow-soft hover:shadow-ocean transition-all duration-300 aspect-square"
-                    onClick={() => openAt(outsideImages.length + i)}
-                    aria-label={`Otwórz podgląd: ${image.alt}`}
-                  >
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </button>
-                ))}
-              </div>
+              <GalleryGrid
+                images={insideImages}
+                startIndex={outsideImages.length}
+                openAt={openAt}
+                className="mb-16"
+              />
             )}
           </div>
         </section>
@@ -216,9 +189,11 @@ const Galeria = () => {
                     Odkryj piękno Rusinowa i komfort naszych domków letniskowych.
                     Przekonaj się, dlaczego to idealne miejsce na Twój wypoczynek nad morzem.
                   </p>
-                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+
+                  <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ paddingBottom: "56.25%" }}>
                     <iframe
-                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      loading="lazy"
+                      className="absolute top-0 left-0 w-full h-full"
                       src="https://www.youtube.com/embed/JNhcOOIwQmg"
                       title="Domki letniskowe Rusinowo - Film promocyjny"
                       frameBorder="0"
@@ -263,6 +238,7 @@ const Galeria = () => {
             <h2 className="text-3xl font-bold text-primary mb-6">
               Przekonałeś się? Zarezerwuj już dziś!
             </h2>
+
             <Button asChild variant="reserve" size="lg">
               <Link to="/rezerwacja">Zarezerwuj domek</Link>
             </Button>
@@ -276,11 +252,10 @@ const Galeria = () => {
 
       {open && total > 0 && current && (
         <div
-          className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center text-white"
+          className="fixed inset-0 z-[9999] bg-black/85 backdrop-blur-sm flex items-center justify-center text-white"
           onClick={(e) => {
             if (e.target === e.currentTarget) close();
           }}
-          onWheel={onWheel}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
           role="dialog"
@@ -288,7 +263,7 @@ const Galeria = () => {
         >
           <button
             onClick={prev}
-            className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 p-3 focus:outline-none focus:ring"
+            className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 transition-colors p-3 focus:outline-none focus:ring"
             aria-label="Poprzednie zdjęcie"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
@@ -299,26 +274,23 @@ const Galeria = () => {
             </svg>
           </button>
 
-          <div className="max-w-[90vw] max-h-[90vh] relative">
+          <div className="max-w-[92vw] max-h-[90vh] relative">
             <img
               src={current.src}
               alt={current.alt}
-              className="max-w-[90vw] max-h-[90vh] object-contain select-none transition-transform duration-150"
-              style={{
-                transform: `scale(${scale})`,
-                transformOrigin: "center center",
-              }}
+              className="max-w-[92vw] max-h-[90vh] object-contain select-none"
+              decoding="async"
               draggable={false}
             />
 
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-3 text-sm text-white/90 px-3 py-1 rounded-full bg-black/40 whitespace-nowrap">
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-3 text-sm text-white/90 px-3 py-1 rounded-full bg-black/50 whitespace-nowrap">
               {current.alt} • {index + 1}/{total}
             </div>
           </div>
 
           <button
             onClick={next}
-            className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 p-3 focus:outline-none focus:ring"
+            className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 transition-colors p-3 focus:outline-none focus:ring"
             aria-label="Następne zdjęcie"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
@@ -331,7 +303,7 @@ const Galeria = () => {
 
           <button
             onClick={close}
-            className="absolute top-3 right-3 md:top-6 md:right-6 rounded-full bg-white/10 hover:bg-white/20 p-3 focus:outline-none focus:ring"
+            className="absolute top-3 right-3 md:top-6 md:right-6 rounded-full bg-white/10 hover:bg-white/20 transition-colors p-3 focus:outline-none focus:ring"
             aria-label="Zamknij podgląd"
             title="Zamknij (Esc)"
           >
@@ -348,6 +320,38 @@ const Galeria = () => {
   );
 };
 
+type GalleryGridProps = {
+  images: ImgEntry[];
+  startIndex: number;
+  openAt: (index: number) => void;
+  className?: string;
+};
+
+const GalleryGrid = ({ images, startIndex, openAt, className = "" }: GalleryGridProps) => (
+  <div
+    className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ${className}`}
+  >
+    {images.map((image, i) => (
+      <button
+        key={`${image.alt}-${image.id}`}
+        className="group relative overflow-hidden rounded-lg shadow-soft hover:shadow-ocean transition-shadow duration-300 aspect-square bg-muted"
+        onClick={() => openAt(startIndex + i)}
+        aria-label={`Otwórz podgląd: ${image.alt}`}
+      >
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:will-change-transform"
+          loading="lazy"
+          decoding="async"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </button>
+    ))}
+  </div>
+);
+
 type VideoCardProps = {
   title: string;
   src: string;
@@ -357,9 +361,11 @@ type VideoCardProps = {
 const VideoCard = ({ title, src, iframeTitle }: VideoCardProps) => (
   <div className="bg-card rounded-lg p-6 shadow-soft">
     <h3 className="text-xl font-semibold mb-4 text-center">{title}</h3>
-    <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+
+    <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ paddingBottom: "56.25%" }}>
       <iframe
-        className="absolute top-0 left-0 w-full h-full rounded-lg"
+        loading="lazy"
+        className="absolute top-0 left-0 w-full h-full"
         src={src}
         title={iframeTitle}
         frameBorder="0"
