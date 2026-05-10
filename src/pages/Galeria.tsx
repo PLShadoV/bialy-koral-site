@@ -8,36 +8,44 @@ import { useEffect, useMemo, useState, useCallback } from "react";
 
 import heroForest from "@/assets/hero-forest.jpg";
 
-// ✅ Automatyczne wczytanie wszystkich obrazów z katalogu src/assets/gallery
-//   (Vite + TS/JS). Dopuszczalne rozszerzenia: jpg, jpeg, png, webp.
-const modules = import.meta.glob("@/assets/gallery/*.{jpg,jpeg,png,webp}", {
+const outsideModules = import.meta.glob("@/assets/gallery/*.{jpg,jpeg,png,webp}", {
+  eager: true,
+});
+
+const insideModules = import.meta.glob("@/assets/gallery/inside/*.{jpg,jpeg,png,webp}", {
   eager: true,
 });
 
 type ImgEntry = { id: number; src: string; alt: string };
 
-// Zamieniamy mapę modułów na tablicę {id, src, alt}
-const galleryImages: ImgEntry[] = Object.entries(modules).map(
-  ([path, mod], idx) => {
-    // @ts-ignore - Vite zwraca moduł z default URL
-    const url = (mod as { default?: string }).default ?? (mod as unknown as string);
+const makeImages = (
+  modules: Record<string, unknown>,
+  prefix: string
+): ImgEntry[] =>
+  Object.entries(modules).map(([path, mod], idx) => {
+    const url =
+      (mod as { default?: string }).default ?? (mod as unknown as string);
+
     const filename = path.split("/").pop() || `photo-${idx + 1}`;
     const name = filename.replace(/\.[^.]+$/, "").replace(/[-_]/g, " ");
 
     return {
       id: idx + 1,
       src: url,
-      alt: `Zdjęcie: ${name}`,
+      alt: `${prefix}: ${name}`,
     };
-  }
-);
+  });
+
+const outsideImages = makeImages(outsideModules, "Zdjęcie domków");
+const insideImages = makeImages(insideModules, "Zdjęcie wnętrza");
+
+const galleryImages = [...outsideImages, ...insideImages];
 
 const Galeria = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // ---- Lightbox state/logic ----
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [scale, setScale] = useState(1);
@@ -49,7 +57,7 @@ const Galeria = () => {
     setIndex(i);
     setOpen(true);
     setScale(1);
-    document.body.style.overflow = "hidden"; // blokuje scroll tła
+    document.body.style.overflow = "hidden";
   };
 
   const close = useCallback(() => {
@@ -60,40 +68,50 @@ const Galeria = () => {
   const prev = useCallback(() => {
     if (!total) return;
     setIndex((i) => (i - 1 + total) % total);
+    setScale(1);
   }, [total]);
 
   const next = useCallback(() => {
     if (!total) return;
     setIndex((i) => (i + 1) % total);
+    setScale(1);
   }, [total]);
 
-  // Klawiatura: ESC, strzałki
   useEffect(() => {
     if (!open) return;
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
       if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
     };
+
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
   }, [open, close, prev, next]);
 
-  // Zoom kółkiem
   const onWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
     const delta = e.deltaY > 0 ? -0.1 : 0.1;
     setScale((s) => Math.min(3, Math.max(0.5, s + delta)));
   };
 
-  // Prosty swipe na mobile
   const [touchX, setTouchX] = useState<number | null>(null);
+
   const onTouchStart: React.TouchEventHandler<HTMLDivElement> = (e) =>
     setTouchX(e.touches[0].clientX);
+
   const onTouchEnd: React.TouchEventHandler<HTMLDivElement> = (e) => {
     if (touchX === null) return;
+
     const dx = e.changedTouches[0].clientX - touchX;
+
     if (dx > 50) prev();
     if (dx < -50) next();
+
     setTouchX(null);
   };
 
@@ -102,7 +120,6 @@ const Galeria = () => {
       <Header />
 
       <main>
-        {/* Hero Section */}
         <section className="relative h-96 flex items-center justify-center overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -119,24 +136,52 @@ const Galeria = () => {
           </div>
         </section>
 
-        {/* Gallery Grid */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-primary text-center mb-12">
               Zdjęcia domków
             </h2>
 
-            {total === 0 ? (
+            {outsideImages.length === 0 ? (
+              <p className="text-center text-muted-foreground mb-16">
+                Dodaj zdjęcia do <code>src/assets/gallery/</code>.
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-20">
+                {outsideImages.map((image, i) => (
+                  <button
+                    key={`outside-${image.id}`}
+                    className="group relative overflow-hidden rounded-lg shadow-soft hover:shadow-ocean transition-all duration-300 aspect-square"
+                    onClick={() => openAt(i)}
+                    aria-label={`Otwórz podgląd: ${image.alt}`}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <h2 className="text-3xl font-bold text-primary text-center mb-12">
+              Zdjęcia wewnątrz
+            </h2>
+
+            {insideImages.length === 0 ? (
               <p className="text-center text-muted-foreground">
-                Dodaj zdjęcia do <code>src/assets/gallery/</code> (jpg/png/webp), aby wyświetlić galerię.
+                Dodaj zdjęcia do <code>src/assets/gallery/inside/</code>.
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
-                {galleryImages.map((image, i) => (
+                {insideImages.map((image, i) => (
                   <button
-                    key={image.id}
+                    key={`inside-${image.id}`}
                     className="group relative overflow-hidden rounded-lg shadow-soft hover:shadow-ocean transition-all duration-300 aspect-square"
-                    onClick={() => openAt(i)}
+                    onClick={() => openAt(outsideImages.length + i)}
                     aria-label={`Otwórz podgląd: ${image.alt}`}
                   >
                     <img
@@ -155,7 +200,6 @@ const Galeria = () => {
 
         <Features />
 
-        {/* Video Sections — (bez zmian) */}
         <section className="py-16 bg-accent/20">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -165,7 +209,9 @@ const Galeria = () => {
 
               <div className="mb-16">
                 <div className="bg-card rounded-lg p-8 shadow-soft text-center max-w-4xl mx-auto">
-                  <h3 className="text-2xl font-bold text-primary mb-4">Zobacz nasze domki w akcji</h3>
+                  <h3 className="text-2xl font-bold text-primary mb-4">
+                    Zobacz nasze domki w akcji
+                  </h3>
                   <p className="text-lg text-muted-foreground mb-6">
                     Odkryj piękno Rusinowa i komfort naszych domków letniskowych.
                     Przekonaj się, dlaczego to idealne miejsce na Twój wypoczynek nad morzem.
@@ -184,67 +230,34 @@ const Galeria = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-card rounded-lg p-6 shadow-soft">
-                  <h3 className="text-xl font-semibold mb-4 text-center">Film po niemiecku</h3>
-                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full rounded-lg"
-                      src="https://www.youtube.com/embed/iRxygzYHm_M"
-                      title="Ferienhäuser Rusinowo - Promotional Video"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
-                </div>
+                <VideoCard
+                  title="Film po niemiecku"
+                  src="https://www.youtube.com/embed/iRxygzYHm_M"
+                  iframeTitle="Ferienhäuser Rusinowo - Promotional Video"
+                />
 
-                <div className="bg-card rounded-lg p-6 shadow-soft">
-                  <h3 className="text-xl font-semibold mb-4 text-center">Film po angielsku</h3>
-                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full rounded-lg"
-                      src="https://www.youtube.com/embed/xCoTAp1nI1Y"
-                      title="Holiday Cottages Rusinowo - Promotional Video"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
-                </div>
+                <VideoCard
+                  title="Film po angielsku"
+                  src="https://www.youtube.com/embed/xCoTAp1nI1Y"
+                  iframeTitle="Holiday Cottages Rusinowo - Promotional Video"
+                />
 
-                <div className="bg-card rounded-lg p-6 shadow-soft">
-                  <h3 className="text-xl font-semibold mb-4 text-center">Film po ukraińsku</h3>
-                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full rounded-lg"
-                      src="https://www.youtube.com/embed/YDQLjr58luk"
-                      title="Літні будинки Русинів - Рекламне відео"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
-                </div>
+                <VideoCard
+                  title="Film po ukraińsku"
+                  src="https://www.youtube.com/embed/YDQLjr58luk"
+                  iframeTitle="Літні будинки Русинів - Рекламне відео"
+                />
 
-                <div className="bg-card rounded-lg p-6 shadow-soft">
-                  <h3 className="text-xl font-semibold mb-4 text-center">Film po czesku</h3>
-                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full rounded-lg"
-                      src="https://www.youtube.com/embed/LC-KVI_A7GA"
-                      title="Rekreační domky Rusinowo - Propagační video"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
-                </div>
+                <VideoCard
+                  title="Film po czesku"
+                  src="https://www.youtube.com/embed/LC-KVI_A7GA"
+                  iframeTitle="Rekreační domky Rusinowo - Propagační video"
+                />
               </div>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold text-primary mb-6">
@@ -261,10 +274,9 @@ const Galeria = () => {
 
       <Footer />
 
-      {/* ---- LIGHTBOX ---- */}
-      {open && total > 0 && (
+      {open && total > 0 && current && (
         <div
-          className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center"
+          className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center text-white"
           onClick={(e) => {
             if (e.target === e.currentTarget) close();
           }}
@@ -274,43 +286,49 @@ const Galeria = () => {
           role="dialog"
           aria-modal="true"
         >
-          {/* Strzałka lewa */}
           <button
             onClick={prev}
             className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 p-3 focus:outline-none focus:ring"
             aria-label="Poprzednie zdjęcie"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              <path
+                fill="currentColor"
+                d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+              />
             </svg>
           </button>
 
-          {/* Obraz */}
           <div className="max-w-[90vw] max-h-[90vh] relative">
             <img
               src={current.src}
               alt={current.alt}
-              className="max-w-[90vw] max-h-[90vh] object-contain select-none"
-              style={{ transform: `scale(${scale})`, transformOrigin: "center center" }}
+              className="max-w-[90vw] max-h-[90vh] object-contain select-none transition-transform duration-150"
+              style={{
+                transform: `scale(${scale})`,
+                transformOrigin: "center center",
+              }}
               draggable={false}
             />
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-3 text-sm text-white/90 px-3 py-1 rounded-full bg-black/40">
+
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-3 text-sm text-white/90 px-3 py-1 rounded-full bg-black/40 whitespace-nowrap">
               {current.alt} • {index + 1}/{total}
             </div>
           </div>
 
-          {/* Strzałka prawa */}
           <button
             onClick={next}
             className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 p-3 focus:outline-none focus:ring"
             aria-label="Następne zdjęcie"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              <path
+                fill="currentColor"
+                d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"
+              />
             </svg>
           </button>
 
-          {/* Zamknij */}
           <button
             onClick={close}
             className="absolute top-3 right-3 md:top-6 md:right-6 rounded-full bg-white/10 hover:bg-white/20 p-3 focus:outline-none focus:ring"
@@ -329,5 +347,27 @@ const Galeria = () => {
     </div>
   );
 };
+
+type VideoCardProps = {
+  title: string;
+  src: string;
+  iframeTitle: string;
+};
+
+const VideoCard = ({ title, src, iframeTitle }: VideoCardProps) => (
+  <div className="bg-card rounded-lg p-6 shadow-soft">
+    <h3 className="text-xl font-semibold mb-4 text-center">{title}</h3>
+    <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+      <iframe
+        className="absolute top-0 left-0 w-full h-full rounded-lg"
+        src={src}
+        title={iframeTitle}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    </div>
+  </div>
+);
 
 export default Galeria;
