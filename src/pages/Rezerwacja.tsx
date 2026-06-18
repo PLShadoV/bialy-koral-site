@@ -1,25 +1,18 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect } from "react";
-import { Users, Phone, Mail, CheckCircle, Clock } from "lucide-react";
+import { Phone, CheckCircle, Clock } from "lucide-react";
 import heroCoastal from "@/assets/hero-coastal.jpg";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const IFRAME_ID = "ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa";
 const SENDER = "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa";
 
 const Rezerwacja = () => {
-  // Scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+  const { t } = useLanguage();
 
   const benefits = [
     "Komfortowe domki dla maksymalnie 5 osób",
@@ -38,44 +31,23 @@ const Rezerwacja = () => {
 
     const receiver = (event: MessageEvent) => {
       if (!event.data?.sender || event.data.sender !== SENDER) return;
-
       if (event.data.height && iframe) {
         iframe.style.height = `${event.data.height + 10}px`;
       }
-
       if (event.data.event?.name === "widget.scrollup.requested") {
         iframe.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-
-      if (event.data.event?.name === "reservation.submit.success") {
-        const r = event.data.event.data.reservation;
-        if (window.gtag) {
-          gtag("event", "purchase", {
-            transaction_id: r.id,
-            value: r.moneyTotal / 100,
-            currency: "PLN",
-          });
-        }
       }
     };
 
     window.addEventListener("message", receiver);
-
     const setup = () => {
       try {
         iframe.contentWindow?.postMessage(
-          {
-            location: window.location.toString(),
-            setup: {
-              autoHeight: true,
-              senderName: SENDER,
-            },
-          },
+          { location: window.location.toString(), setup: { autoHeight: true, senderName: SENDER } },
           "*"
         );
       } catch {}
     };
-
     const interval = setInterval(setup, 1000);
     iframe.addEventListener("load", setup);
 
@@ -87,35 +59,23 @@ const Rezerwacja = () => {
   }, []);
 
   return (
-    <div className="min-h-screen page-enter font-quicksand bg-background">
+    <div className="min-h-screen bg-background">
       <Header />
 
-      {/* HERO */}
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroCoastal})` }}
-        />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroCoastal})` }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
         <div className="relative z-10 text-center text-white px-4 max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Rezerwacja</h1>
-          <p className="text-xl opacity-90">Zarezerwuj jeden z naszych domków już dziś</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">{t.reservation.pageTitle}</h1>
+          <p className="text-xl opacity-90">{t.reservation.pageSubtitle}</p>
         </div>
       </section>
 
-      {/* MAIN */}
       <main className="py-16">
         <div className="container mx-auto px-4 max-w-6xl space-y-12">
-
-          {/* SYSTEM REZERWACJI */}
           <div className="bg-white rounded-xl border border-primary/20 p-4 md:p-6">
-            <h2 className="text-2xl font-semibold text-center mb-4">
-              System rezerwacji online
-            </h2>
-            <p className="text-center text-muted-foreground mb-6">
-              Sprawdź dostępność i zarezerwuj swój pobyt w kilku krokach
-            </p>
-
+            <h2 className="text-2xl font-semibold text-center mb-4">{t.reservation.formTitle}</h2>
+            <p className="text-center text-muted-foreground mb-6">{t.reservation.pageSubtitle}</p>
             <iframe
               id={IFRAME_ID}
               title="Rezerwacja – widget RoomAdmin"
@@ -125,15 +85,12 @@ const Rezerwacja = () => {
             />
           </div>
 
-          {/* BENEFITS + INFORMACJE */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            {/* BENEFITS */}
             <Card className="glass-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <CheckCircle className="text-primary" />
-                  Co oferujemy
+                  {t.pricing.infoTitle}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
@@ -148,21 +105,18 @@ const Rezerwacja = () => {
               </CardContent>
             </Card>
 
-            {/* INFORMACJE + KONTAKT */}
             <div className="space-y-6">
-
               <Card className="glass-card">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-xl">
                     <Clock className="text-primary" />
-                    Informacje o pobycie
+                    {t.pricing.infoTitle}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <p>• Check-in: 15:00</p>
                   <p>• Check-out: 10:00</p>
-                  <p>• Zwierzęta: 15 zł / doba</p>
-                  <p>• Płatność: gotówka / przelew</p>
+                  <p>• {t.reservation.pets}: 15 zł / {t.pricing.perNight}</p>
                 </CardContent>
               </Card>
 
@@ -170,7 +124,7 @@ const Rezerwacja = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center justify-center gap-2 text-xl">
                     <Phone className="text-primary h-6 w-6" />
-                    Kontakt
+                    {t.contact.callUs}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -178,11 +132,13 @@ const Rezerwacja = () => {
                     <a href="tel:+48797392903">+48 797 392 903</a>
                   </Button>
                   <p className="text-muted-foreground">
-                    lub napisz: <a href="mailto:info@szafirrusinowo.pl" className="text-primary">info@szafirrusinowo.pl</a>
+                    {t.contact.emailUs}:{" "}
+                    <a href="mailto:info@koralrusinowo.pl" className="text-primary">
+                      info@koralrusinowo.pl
+                    </a>
                   </p>
                 </CardContent>
               </Card>
-
             </div>
           </div>
         </div>

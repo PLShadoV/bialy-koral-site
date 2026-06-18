@@ -7,18 +7,16 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Calendar, Banknote } from "lucide-react";
 import heroBeach from "@/assets/hero-beach.jpg";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const Cennik = () => {
-  console.log("Cennik component rendered");
-  useEffect(() => {
-    console.log("Cennik useEffect - scrolling to top");
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+  const { t } = useLanguage();
 
   const pricing = [
-    { period: "Wielkanoc 01.04-07.04", price: "350 zł" },
+    { period: "Wielkanoc 01.04–07.04", price: "350 zł" },
     { period: "11.04–31.05", price: "280 zł" },
-    { period: "Majówka 29.04 - 03.05", price: "350 zł" },
+    { period: "Majówka 29.04–03.05", price: "350 zł" },
     { period: "01.06–14.06", price: "320 zł" },
     { period: "15.06–28.06", price: "350 zł" },
     { period: "29.06–05.07", price: "450 zł" },
@@ -28,32 +26,43 @@ const Cennik = () => {
     { period: "01.09–19.10", price: "270 zł" },
   ];
 
+  const additionalInfo = [
+    "Ceny podane za domek na dobę",
+    "Do ceny należy doliczyć opłatę klimatyczną w wysokości 3,30 zł za osobę za dobę",
+    "Domki pięcioosobowe z pełnym wyposażeniem",
+    "Możliwość pobytu z psami za dodatkową opłatą 15 zł za dobę",
+    "Bezpłatne Wi-Fi na terenie całego ośrodka",
+    "Lokalizacja: 600m od morza, przy lesie",
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
       <main>
         {/* Hero Section */}
         <section className="relative h-96 flex items-center justify-center overflow-hidden">
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${heroBeach})` }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
           <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
-              Cennik
+              {t.pricing.pageTitle}
             </h1>
             <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
-              Cennik sezonowy za domek za dobę. Rezerwuj już dziś!
+              {t.pricing.pageSubtitle}
             </p>
           </div>
         </section>
-        
+
         {/* Pricing Section */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold text-primary text-center mb-8">
+                {t.pricing.pricingTableTitle}
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {pricing.map((item, index) => (
                   <Card key={index} className="shadow-soft hover:shadow-ocean transition-all duration-300 hover:transform hover:scale-105">
@@ -64,49 +73,36 @@ const Cennik = () => {
                             <Calendar className="h-5 w-5 text-white" />
                           </div>
                           <div>
-                            <h3 className="text-lg font-semibold text-foreground">
-                              {item.period}
-                            </h3>
-                            <p className="text-sm text-muted-foreground">
-                              za dobę
-                            </p>
+                            <h3 className="text-lg font-semibold text-foreground">{item.period}</h3>
+                            <p className="text-sm text-muted-foreground">{t.pricing.perNight}</p>
                           </div>
                         </div>
-                        
                         <div className="text-right">
                           <div className="flex items-center gap-2">
                             <Banknote className="h-5 w-5 text-primary" />
-                            <span className="text-2xl font-bold text-primary">
-                              {item.price}
-                            </span>
+                            <span className="text-2xl font-bold text-primary">{item.price}</span>
                           </div>
                         </div>
                       </div>
-                      
                       <Button asChild variant="reserve" className="w-full">
-                        <Link to="/rezerwacja">
-                          Zarezerwuj
-                        </Link>
+                        <Link to="/rezerwacja">{t.pricing.bookNow}</Link>
                       </Button>
                     </CardContent>
                   </Card>
                 ))}
               </div>
-              
+
               {/* Additional Info */}
               <div className="mt-12 text-center">
                 <Card className="bg-accent/20 shadow-soft">
                   <CardContent className="p-8">
                     <h3 className="text-xl font-semibold text-foreground mb-4">
-                      Informacje dodatkowe
+                      {t.pricing.infoTitle}
                     </h3>
-                    <ul className="text-muted-foreground space-y-2">
-                      <li>• Ceny podane za domek na dobę</li>
-                      <li>• Do ceny należy doliczyć opłatę klimatyczną w wysokości 3,30 zł za osobę za dobę</li>
-                      <li>• Domki pięcioosobowe z pełnym wyposażeniem</li>
-                      <li>• Możliwość pobytu z psami za dodatkową opłatą 15 zł za dobę</li>
-                      <li>• Bezpłatne Wi-Fi na terenie całego ośrodka</li>
-                      <li>• Lokalizacja: 600m od morza, przy lesie</li>
+                    <ul className="text-muted-foreground space-y-2 text-left">
+                      {additionalInfo.map((info, i) => (
+                        <li key={i}>• {info}</li>
+                      ))}
                     </ul>
                   </CardContent>
                 </Card>
@@ -114,10 +110,9 @@ const Cennik = () => {
             </div>
           </div>
         </section>
-        
+
         <ContactSection />
       </main>
-      
       <Footer />
     </div>
   );

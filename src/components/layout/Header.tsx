@@ -8,20 +8,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { Language } from "@/i18n/translations";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   const navigation = [
-    { name: "Strona główna", href: "/" },
-    { name: "Galeria", href: "/galeria" },
-    { name: "Cennik", href: "/cennik" },
-    { name: "Kontakt", href: "/kontakt" },
-    { name: "Rezerwacja", href: "/rezerwacja" },
+    { name: t.nav.home, href: "/" },
+    { name: t.nav.gallery, href: "/galeria" },
+    { name: t.nav.pricing, href: "/cennik" },
+    { name: t.nav.contact, href: "/kontakt" },
+    { name: t.nav.reservation, href: "/rezerwacja" },
   ];
 
-  const languages = [
+  const languages: { code: Language; name: string }[] = [
     { code: "PL", name: "Polski" },
     { code: "DE", name: "Deutsch" },
     { code: "EN", name: "English" },
@@ -49,7 +52,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link
-                key={item.name}
+                key={item.href}
                 to={item.href}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
                   location.pathname === item.href
@@ -65,7 +68,7 @@ const Header = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                  Nasze ośrodki
+                  {t.nav.ourResorts}
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -90,14 +93,18 @@ const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="flex items-center gap-1">
                   <Globe className="h-4 w-4" />
-                  PL
+                  {language}
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {languages.map((lang) => (
-                  <DropdownMenuItem key={lang.code} className="cursor-pointer">
-                    {lang.code} - {lang.name}
+                  <DropdownMenuItem
+                    key={lang.code}
+                    className={`cursor-pointer ${language === lang.code ? "font-bold text-primary" : ""}`}
+                    onClick={() => setLanguage(lang.code)}
+                  >
+                    {lang.code} — {lang.name}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -121,7 +128,7 @@ const Header = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
                 <Link
-                  key={item.name}
+                  key={item.href}
                   to={item.href}
                   className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary transition-colors"
                   onClick={() => setIsMenuOpen(false)}
@@ -129,10 +136,10 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              
+
               <div className="border-t border-border pt-2">
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">
-                  Nasze ośrodki
+                  {t.nav.ourResorts}
                 </div>
                 {externalLinks.map((link) => (
                   <a
@@ -146,17 +153,20 @@ const Header = () => {
                   </a>
                 ))}
               </div>
-              
+
               <div className="border-t border-border pt-2">
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">
-                  Język
+                  {t.nav.language}
                 </div>
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
-                    className="block px-6 py-2 text-sm text-foreground hover:text-primary transition-colors"
+                    onClick={() => { setLanguage(lang.code); setIsMenuOpen(false); }}
+                    className={`block w-full text-left px-6 py-2 text-sm hover:text-primary transition-colors ${
+                      language === lang.code ? "text-primary font-bold" : "text-foreground"
+                    }`}
                   >
-                    {lang.code} - {lang.name}
+                    {lang.code} — {lang.name}
                   </button>
                 ))}
               </div>
