@@ -6,23 +6,26 @@ import { useEffect } from "react";
 import { Phone, CheckCircle, Clock } from "lucide-react";
 import heroCoastal from "@/assets/hero-coastal.jpg";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { Language } from "@/i18n/translations";
 
 const IFRAME_ID = "ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa";
 const SENDER = "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa";
 
-const Rezerwacja = () => {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
-  const { t } = useLanguage();
+const roomAdminLanguageMap: Record<Language, string> = {
+  PL: "pl",
+  EN: "en",
+  DE: "de",
+  UA: "uk",
+  CS: "cs",
+};
 
-  const benefits = [
-    "Komfortowe domki dla maksymalnie 5 osób",
-    "Pełne wyposażenie kuchenne",
-    "Bezpłatne Wi-Fi na terenie ośrodka",
-    "600 metrów od morza",
-    "Ciche miejsce przy lesie",
-    "Klimatyzacja i pralka",
-    "Możliwość pobytu z psami",
-  ];
+const Rezerwacja = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const { language, t } = useLanguage();
+  const roomAdminLanguage = roomAdminLanguageMap[language] ?? "pl";
 
   // Iframe communication
   useEffect(() => {
@@ -56,7 +59,7 @@ const Rezerwacja = () => {
       iframe.removeEventListener("load", setup);
       clearInterval(interval);
     };
-  }, []);
+  }, [language]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -77,9 +80,10 @@ const Rezerwacja = () => {
             <h2 className="text-2xl font-semibold text-center mb-4">{t.reservation.formTitle}</h2>
             <p className="text-center text-muted-foreground mb-6">{t.reservation.pageSubtitle}</p>
             <iframe
+              key={language}
               id={IFRAME_ID}
-              title="Rezerwacja – widget RoomAdmin"
-              src="https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%231f8fe6%22%2C%22color_bg%22%3A%22%23FFFFFF%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=pl"
+              title={t.reservation.widgetTitle}
+              src={`https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%231f8fe6%22%2C%22color_bg%22%3A%22%23FFFFFF%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=${roomAdminLanguage}`}
               style={{ width: "100%", minHeight: "320px", border: "none" }}
               scrolling="no"
             />
@@ -95,10 +99,10 @@ const Rezerwacja = () => {
               </CardHeader>
               <CardContent className="space-y-3">
                 <ul className="space-y-2">
-                  {benefits.map((b, i) => (
+                  {t.reservation.benefits.map((benefit, i) => (
                     <li key={i} className="flex gap-2">
                       <CheckCircle className="text-primary h-5 w-5" />
-                      <span className="text-muted-foreground">{b}</span>
+                      <span className="text-muted-foreground">{benefit}</span>
                     </li>
                   ))}
                 </ul>
@@ -110,13 +114,13 @@ const Rezerwacja = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-xl">
                     <Clock className="text-primary" />
-                    {t.pricing.infoTitle}
+                    {t.reservation.stayInfoTitle}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <p>• Check-in: 15:00</p>
-                  <p>• Check-out: 10:00</p>
-                  <p>• {t.reservation.pets}: 15 zł / {t.pricing.perNight}</p>
+                  <p>• {t.reservation.checkIn}: 15:00</p>
+                  <p>• {t.reservation.checkOut}: 10:00</p>
+                  <p>• {t.reservation.petFee}: 15 zł / {t.pricing.perNight}</p>
                 </CardContent>
               </Card>
 
@@ -132,7 +136,7 @@ const Rezerwacja = () => {
                     <a href="tel:+48797392903">+48 797 392 903</a>
                   </Button>
                   <p className="text-muted-foreground">
-                    {t.contact.emailUs}:{" "}
+                    {t.contact.emailUs}: {" "}
                     <a href="mailto:info@koralrusinowo.pl" className="text-primary">
                       info@koralrusinowo.pl
                     </a>

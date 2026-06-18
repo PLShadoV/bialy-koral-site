@@ -10,30 +10,11 @@ import heroBeach from "@/assets/hero-beach.jpg";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Cennik = () => {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { t } = useLanguage();
-
-  const pricing = [
-    { period: "Wielkanoc 01.04–07.04", price: "350 zł" },
-    { period: "11.04–31.05", price: "280 zł" },
-    { period: "Majówka 29.04–03.05", price: "350 zł" },
-    { period: "01.06–14.06", price: "320 zł" },
-    { period: "15.06–28.06", price: "350 zł" },
-    { period: "29.06–05.07", price: "450 zł" },
-    { period: "06.07–12.07", price: "470 zł" },
-    { period: "13.07–16.08", price: "550 zł" },
-    { period: "17.08–31.08", price: "450 zł" },
-    { period: "01.09–19.10", price: "270 zł" },
-  ];
-
-  const additionalInfo = [
-    "Ceny podane za domek na dobę",
-    "Do ceny należy doliczyć opłatę klimatyczną w wysokości 3,30 zł za osobę za dobę",
-    "Domki pięcioosobowe z pełnym wyposażeniem",
-    "Możliwość pobytu z psami za dodatkową opłatą 15 zł za dobę",
-    "Bezpłatne Wi-Fi na terenie całego ośrodka",
-    "Lokalizacja: 600m od morza, przy lesie",
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -64,8 +45,11 @@ const Cennik = () => {
                 {t.pricing.pricingTableTitle}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {pricing.map((item, index) => (
-                  <Card key={index} className="shadow-soft hover:shadow-ocean transition-all duration-300 hover:transform hover:scale-105">
+                {t.pricing.rates.map((item, index) => (
+                  <Card
+                    key={`${item.period}-${index}`}
+                    className="shadow-soft hover:shadow-ocean transition-all duration-300 hover:transform hover:scale-105"
+                  >
                     <CardContent className="p-8">
                       <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">
@@ -100,7 +84,7 @@ const Cennik = () => {
                       {t.pricing.infoTitle}
                     </h3>
                     <ul className="text-muted-foreground space-y-2 text-left">
-                      {additionalInfo.map((info, i) => (
+                      {t.pricing.infoItems.map((info, i) => (
                         <li key={i}>• {info}</li>
                       ))}
                     </ul>

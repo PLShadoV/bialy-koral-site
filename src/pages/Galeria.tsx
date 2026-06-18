@@ -4,7 +4,8 @@ import Features from "@/components/sections/Features";
 import ContactSection from "@/components/sections/ContactSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useCallback, type TouchEventHandler } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 import heroForest from "@/assets/hero-forest.jpg";
 
@@ -40,21 +41,33 @@ const makeImages = (
     };
   });
 
-const outsideImages = makeImages(outsideModules, "Zdjęcie domków");
-const insideImages = makeImages(insideModules, "Zdjęcie wnętrza");
-
-const galleryImages = [...outsideImages, ...insideImages];
-
 const Galeria = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const { t } = useLanguage();
+
+  const outsideImages = useMemo(
+    () => makeImages(outsideModules, t.gallery.outsideImageAltPrefix),
+    [t.gallery.outsideImageAltPrefix]
+  );
+
+  const insideImages = useMemo(
+    () => makeImages(insideModules, t.gallery.insideImageAltPrefix),
+    [t.gallery.insideImageAltPrefix]
+  );
+
+  const galleryImages = useMemo(
+    () => [...outsideImages, ...insideImages],
+    [outsideImages, insideImages]
+  );
+
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
   const total = galleryImages.length;
-  const current = useMemo(() => galleryImages[index], [index]);
+  const current = useMemo(() => galleryImages[index], [galleryImages, index]);
 
   const openAt = (i: number) => {
     setIndex(i);
@@ -96,11 +109,11 @@ const Galeria = () => {
 
   const [touchX, setTouchX] = useState<number | null>(null);
 
-  const onTouchStart: React.TouchEventHandler<HTMLDivElement> = (e) => {
+  const onTouchStart: TouchEventHandler<HTMLDivElement> = (e) => {
     setTouchX(e.touches[0].clientX);
   };
 
-  const onTouchEnd: React.TouchEventHandler<HTMLDivElement> = (e) => {
+  const onTouchEnd: TouchEventHandler<HTMLDivElement> = (e) => {
     if (touchX === null) return;
 
     const dx = e.changedTouches[0].clientX - touchX;
@@ -125,10 +138,10 @@ const Galeria = () => {
 
           <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
-              Galeria
+              {t.gallery.pageTitle}
             </h1>
             <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
-              Zobacz nasze komfortowe domki letniskowe i piękne otoczenie w Rusinowie
+              {t.gallery.pageSubtitle}
             </p>
           </div>
         </section>
@@ -136,35 +149,37 @@ const Galeria = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-primary text-center mb-12">
-              Zdjęcia domków
+              {t.gallery.outsidePhotosTitle}
             </h2>
 
             {outsideImages.length === 0 ? (
               <p className="text-center text-muted-foreground mb-16">
-                Dodaj zdjęcia do <code>src/assets/gallery/</code>.
+                {t.gallery.noOutsidePhotos} <code>src/assets/gallery/</code>.
               </p>
             ) : (
               <GalleryGrid
                 images={outsideImages}
                 startIndex={0}
                 openAt={openAt}
+                openPreviewLabel={t.gallery.openPreview}
                 className="mb-20"
               />
             )}
 
             <h2 className="text-3xl font-bold text-primary text-center mb-12">
-              Zdjęcia wewnątrz
+              {t.gallery.insidePhotosTitle}
             </h2>
 
             {insideImages.length === 0 ? (
               <p className="text-center text-muted-foreground">
-                Dodaj zdjęcia do <code>src/assets/gallery/inside/</code>.
+                {t.gallery.noInsidePhotos} <code>src/assets/gallery/inside/</code>.
               </p>
             ) : (
               <GalleryGrid
                 images={insideImages}
                 startIndex={outsideImages.length}
                 openAt={openAt}
+                openPreviewLabel={t.gallery.openPreview}
                 className="mb-16"
               />
             )}
@@ -177,17 +192,16 @@ const Galeria = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl font-bold text-primary text-center mb-12">
-                Filmy promocyjne
+                {t.gallery.videosTitle}
               </h2>
 
               <div className="mb-16">
                 <div className="bg-card rounded-lg p-8 shadow-soft text-center max-w-4xl mx-auto">
                   <h3 className="text-2xl font-bold text-primary mb-4">
-                    Zobacz nasze domki w akcji
+                    {t.gallery.mainVideoTitle}
                   </h3>
                   <p className="text-lg text-muted-foreground mb-6">
-                    Odkryj piękno Rusinowa i komfort naszych domków letniskowych.
-                    Przekonaj się, dlaczego to idealne miejsce na Twój wypoczynek nad morzem.
+                    {t.gallery.mainVideoDescription}
                   </p>
 
                   <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ paddingBottom: "56.25%" }}>
@@ -195,7 +209,7 @@ const Galeria = () => {
                       loading="lazy"
                       className="absolute top-0 left-0 w-full h-full"
                       src="https://www.youtube.com/embed/JNhcOOIwQmg"
-                      title="Domki letniskowe Rusinowo - Film promocyjny"
+                      title={t.gallery.mainVideoIframeTitle}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -206,25 +220,25 @@ const Galeria = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <VideoCard
-                  title="Film po niemiecku"
+                  title={t.gallery.germanVideoTitle}
                   src="https://www.youtube.com/embed/iRxygzYHm_M"
                   iframeTitle="Ferienhäuser Rusinowo - Promotional Video"
                 />
 
                 <VideoCard
-                  title="Film po angielsku"
+                  title={t.gallery.englishVideoTitle}
                   src="https://www.youtube.com/embed/xCoTAp1nI1Y"
                   iframeTitle="Holiday Cottages Rusinowo - Promotional Video"
                 />
 
                 <VideoCard
-                  title="Film po ukraińsku"
+                  title={t.gallery.ukrainianVideoTitle}
                   src="https://www.youtube.com/embed/YDQLjr58luk"
                   iframeTitle="Літні будинки Русинів - Рекламне відео"
                 />
 
                 <VideoCard
-                  title="Film po czesku"
+                  title={t.gallery.czechVideoTitle}
                   src="https://www.youtube.com/embed/LC-KVI_A7GA"
                   iframeTitle="Rekreační domky Rusinowo - Propagační video"
                 />
@@ -236,11 +250,11 @@ const Galeria = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold text-primary mb-6">
-              Przekonałeś się? Zarezerwuj już dziś!
+              {t.gallery.ctaTitle}
             </h2>
 
             <Button asChild variant="reserve" size="lg">
-              <Link to="/rezerwacja">Zarezerwuj domek</Link>
+              <Link to="/rezerwacja">{t.gallery.ctaButton}</Link>
             </Button>
           </div>
         </section>
@@ -264,7 +278,7 @@ const Galeria = () => {
           <button
             onClick={prev}
             className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 transition-colors p-3 focus:outline-none focus:ring"
-            aria-label="Poprzednie zdjęcie"
+            aria-label={t.gallery.previousPhoto}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -291,7 +305,7 @@ const Galeria = () => {
           <button
             onClick={next}
             className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 transition-colors p-3 focus:outline-none focus:ring"
-            aria-label="Następne zdjęcie"
+            aria-label={t.gallery.nextPhoto}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -304,8 +318,8 @@ const Galeria = () => {
           <button
             onClick={close}
             className="absolute top-3 right-3 md:top-6 md:right-6 rounded-full bg-white/10 hover:bg-white/20 transition-colors p-3 focus:outline-none focus:ring"
-            aria-label="Zamknij podgląd"
-            title="Zamknij (Esc)"
+            aria-label={t.gallery.closePreview}
+            title={t.gallery.closePreviewTitle}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -324,10 +338,11 @@ type GalleryGridProps = {
   images: ImgEntry[];
   startIndex: number;
   openAt: (index: number) => void;
+  openPreviewLabel: string;
   className?: string;
 };
 
-const GalleryGrid = ({ images, startIndex, openAt, className = "" }: GalleryGridProps) => (
+const GalleryGrid = ({ images, startIndex, openAt, openPreviewLabel, className = "" }: GalleryGridProps) => (
   <div
     className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ${className}`}
   >
@@ -336,7 +351,7 @@ const GalleryGrid = ({ images, startIndex, openAt, className = "" }: GalleryGrid
         key={`${image.alt}-${image.id}`}
         className="group relative overflow-hidden rounded-lg shadow-soft hover:shadow-ocean transition-shadow duration-300 aspect-square bg-muted"
         onClick={() => openAt(startIndex + i)}
-        aria-label={`Otwórz podgląd: ${image.alt}`}
+        aria-label={`${openPreviewLabel}: ${image.alt}`}
       >
         <img
           src={image.src}

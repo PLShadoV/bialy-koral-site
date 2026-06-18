@@ -16,6 +16,7 @@ export interface Translations {
     contactUs: string;
     location: string;
     languages: string;
+    country: string;
     allRightsReserved: string;
   };
   // Hero
@@ -70,6 +71,33 @@ export interface Translations {
     bookNow: string;
     contactForReservation: string;
     pricingTableTitle: string;
+    rates: { period: string; price: string }[];
+  };
+  // Gallery
+  gallery: {
+    pageTitle: string;
+    pageSubtitle: string;
+    outsidePhotosTitle: string;
+    insidePhotosTitle: string;
+    noOutsidePhotos: string;
+    noInsidePhotos: string;
+    videosTitle: string;
+    mainVideoTitle: string;
+    mainVideoDescription: string;
+    mainVideoIframeTitle: string;
+    germanVideoTitle: string;
+    englishVideoTitle: string;
+    ukrainianVideoTitle: string;
+    czechVideoTitle: string;
+    ctaTitle: string;
+    ctaButton: string;
+    outsideImageAltPrefix: string;
+    insideImageAltPrefix: string;
+    previousPhoto: string;
+    nextPhoto: string;
+    closePreview: string;
+    closePreviewTitle: string;
+    openPreview: string;
   };
   // Contact
   contact: {
@@ -82,12 +110,41 @@ export interface Translations {
     visitUs: string;
     phoneHours: string;
     responseTime: string;
+    ctaTitle: string;
+    ctaText: string;
+    formTitle: string;
+    firstName: string;
+    firstNamePlaceholder: string;
+    lastName: string;
+    lastNamePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
+    phone: string;
+    phonePlaceholder: string;
+    message: string;
+    messagePlaceholder: string;
+    sendMessage: string;
+    sending: string;
+    validationErrorTitle: string;
+    validationErrorDescription: string;
+    sendErrorTitle: string;
+    sendErrorDescription: string;
+    successModalTitle: string;
+    successModalDescription: string;
+    phoneTitle: string;
+    addressTitle: string;
+    mapTitle: string;
+    mapPlaceholder: string;
+    howToFindUs: string;
+    howToFindUsSubtitle: string;
+    mapIframeTitle: string;
   };
   // Reservation
   reservation: {
     pageTitle: string;
     pageSubtitle: string;
     formTitle: string;
+    widgetTitle: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -103,6 +160,9 @@ export interface Translations {
     successTitle: string;
     successMessage: string;
     sending: string;
+    benefits: string[];
+    stayInfoTitle: string;
+    petFee: string;
   };
   // 404
   notFound: {
@@ -127,6 +187,7 @@ export const translations: Record<Language, Translations> = {
       contactUs: "Skontaktuj się z nami",
       location: "Lokalizacja",
       languages: "Języki",
+      country: "Polska",
       allRightsReserved: "Wszystkie prawa zastrzeżone.",
     },
     hero: {
@@ -202,6 +263,43 @@ export const translations: Record<Language, Translations> = {
       bookNow: "Zarezerwuj teraz",
       contactForReservation: "Skontaktuj się w sprawie rezerwacji",
       pricingTableTitle: "Cennik 2025",
+      rates: [
+        { period: "Wielkanoc 01.04–07.04", price: "350 zł" },
+        { period: "11.04–31.05", price: "280 zł" },
+        { period: "Majówka 29.04–03.05", price: "350 zł" },
+        { period: "01.06–14.06", price: "320 zł" },
+        { period: "15.06–28.06", price: "350 zł" },
+        { period: "29.06–05.07", price: "450 zł" },
+        { period: "06.07–12.07", price: "470 zł" },
+        { period: "13.07–16.08", price: "550 zł" },
+        { period: "17.08–31.08", price: "450 zł" },
+        { period: "01.09–19.10", price: "270 zł" },
+      ],
+    },
+    gallery: {
+      pageTitle: "Galeria",
+      pageSubtitle: "Zobacz nasze komfortowe domki letniskowe i piękne otoczenie w Rusinowie",
+      outsidePhotosTitle: "Zdjęcia domków",
+      insidePhotosTitle: "Zdjęcia wewnątrz",
+      noOutsidePhotos: "Dodaj zdjęcia do",
+      noInsidePhotos: "Dodaj zdjęcia do",
+      videosTitle: "Filmy promocyjne",
+      mainVideoTitle: "Zobacz nasze domki w akcji",
+      mainVideoDescription: "Odkryj piękno Rusinowa i komfort naszych domków letniskowych. Przekonaj się, dlaczego to idealne miejsce na Twój wypoczynek nad morzem.",
+      mainVideoIframeTitle: "Domki letniskowe Rusinowo - Film promocyjny",
+      germanVideoTitle: "Film po niemiecku",
+      englishVideoTitle: "Film po angielsku",
+      ukrainianVideoTitle: "Film po ukraińsku",
+      czechVideoTitle: "Film po czesku",
+      ctaTitle: "Przekonałeś się? Zarezerwuj już dziś!",
+      ctaButton: "Zarezerwuj domek",
+      outsideImageAltPrefix: "Zdjęcie domków",
+      insideImageAltPrefix: "Zdjęcie wnętrza",
+      previousPhoto: "Poprzednie zdjęcie",
+      nextPhoto: "Następne zdjęcie",
+      closePreview: "Zamknij podgląd",
+      closePreviewTitle: "Zamknij (Esc)",
+      openPreview: "Otwórz podgląd",
     },
     contact: {
       pageTitle: "Kontakt",
@@ -213,11 +311,40 @@ export const translations: Record<Language, Translations> = {
       visitUs: "Odwiedź nas",
       phoneHours: "Dostępni codziennie 8:00–20:00",
       responseTime: "Odpowiadamy w ciągu 24 godzin",
+      ctaTitle: "Zadaj nam pytanie!",
+      ctaText: "Zadzwoń już dziś i zarezerwuj swój wymarzony pobyt!",
+      formTitle: "Napisz do nas",
+      firstName: "Imię",
+      firstNamePlaceholder: "Twoje imię",
+      lastName: "Nazwisko",
+      lastNamePlaceholder: "Twoje nazwisko",
+      email: "E-mail",
+      emailPlaceholder: "twoj@email.pl",
+      phone: "Telefon",
+      phonePlaceholder: "+48 000 000 000",
+      message: "Wiadomość",
+      messagePlaceholder: "Opisz swoje pytanie...",
+      sendMessage: "Wyślij wiadomość",
+      sending: "Wysyłanie...",
+      validationErrorTitle: "Błąd",
+      validationErrorDescription: "Proszę wypełnić wszystkie wymagane pola",
+      sendErrorTitle: "Błąd",
+      sendErrorDescription: "Wystąpił problem podczas wysyłania wiadomości. Spróbuj ponownie.",
+      successModalTitle: "✅ Pomyślnie wysłano wiadomość",
+      successModalDescription: "Odpowiemy w ciągu 24 godzin, dziękujemy!",
+      phoneTitle: "Telefon",
+      addressTitle: "Adres",
+      mapTitle: "Lokalizacja",
+      mapPlaceholder: "Mapa - wkrótce dostępna",
+      howToFindUs: "Jak nas znaleźć",
+      howToFindUsSubtitle: "Biały Koral - Domki letniskowe w Rusinowie",
+      mapIframeTitle: "Mapa - Biały Koral, Sosnowa 9, 76-107 Rusinowo",
     },
     reservation: {
       pageTitle: "Rezerwacja",
       pageSubtitle: "Zarezerwuj swój pobyt w Białym Koralu",
       formTitle: "Formularz rezerwacji",
+      widgetTitle: "Rezerwacja – widget RoomAdmin",
       firstName: "Imię",
       lastName: "Nazwisko",
       email: "E-mail",
@@ -233,6 +360,17 @@ export const translations: Record<Language, Translations> = {
       successTitle: "Dziękujemy za rezerwację!",
       successMessage: "Skontaktujemy się z Tobą wkrótce, aby potwierdzić szczegóły pobytu.",
       sending: "Wysyłanie...",
+      benefits: [
+        "Komfortowe domki dla maksymalnie 5 osób",
+        "Pełne wyposażenie kuchenne",
+        "Bezpłatne Wi-Fi na terenie ośrodka",
+        "600 metrów od morza",
+        "Ciche miejsce przy lesie",
+        "Klimatyzacja i pralka",
+        "Możliwość pobytu z psami",
+      ],
+      stayInfoTitle: "Informacje o pobycie",
+      petFee: "opłata za psa",
     },
     notFound: {
       title: "Strona nie istnieje",
@@ -255,6 +393,7 @@ export const translations: Record<Language, Translations> = {
       contactUs: "Contact Us",
       location: "Location",
       languages: "Languages",
+      country: "Poland",
       allRightsReserved: "All rights reserved.",
     },
     hero: {
@@ -330,6 +469,43 @@ export const translations: Record<Language, Translations> = {
       bookNow: "Book Now",
       contactForReservation: "Contact Us for Reservation",
       pricingTableTitle: "Pricing 2025",
+      rates: [
+        { period: "Easter 01.04–07.04", price: "350 PLN" },
+        { period: "11.04–31.05", price: "280 PLN" },
+        { period: "May weekend 29.04–03.05", price: "350 PLN" },
+        { period: "01.06–14.06", price: "320 PLN" },
+        { period: "15.06–28.06", price: "350 PLN" },
+        { period: "29.06–05.07", price: "450 PLN" },
+        { period: "06.07–12.07", price: "470 PLN" },
+        { period: "13.07–16.08", price: "550 PLN" },
+        { period: "17.08–31.08", price: "450 PLN" },
+        { period: "01.09–19.10", price: "270 PLN" },
+      ],
+    },
+    gallery: {
+      pageTitle: "Gallery",
+      pageSubtitle: "See our comfortable holiday cottages and beautiful surroundings in Rusinowo",
+      outsidePhotosTitle: "Cottage photos",
+      insidePhotosTitle: "Interior photos",
+      noOutsidePhotos: "Add photos to",
+      noInsidePhotos: "Add photos to",
+      videosTitle: "Promotional videos",
+      mainVideoTitle: "See our cottages in action",
+      mainVideoDescription: "Discover the beauty of Rusinowo and the comfort of our holiday cottages. See why this is the perfect place for your seaside holiday.",
+      mainVideoIframeTitle: "Holiday cottages Rusinowo - Promotional video",
+      germanVideoTitle: "Video in German",
+      englishVideoTitle: "Video in English",
+      ukrainianVideoTitle: "Video in Ukrainian",
+      czechVideoTitle: "Video in Czech",
+      ctaTitle: "Convinced? Book today!",
+      ctaButton: "Book a cottage",
+      outsideImageAltPrefix: "Cottage photo",
+      insideImageAltPrefix: "Interior photo",
+      previousPhoto: "Previous photo",
+      nextPhoto: "Next photo",
+      closePreview: "Close preview",
+      closePreviewTitle: "Close (Esc)",
+      openPreview: "Open preview",
     },
     contact: {
       pageTitle: "Contact",
@@ -342,11 +518,40 @@ export const translations: Record<Language, Translations> = {
       visitUs: "Visit Us",
       phoneHours: "Available daily 8:00–20:00",
       responseTime: "We respond within 24 hours",
+      ctaTitle: "Ask us a question!",
+      ctaText: "Call today and book your dream stay!",
+      formTitle: "Write to us",
+      firstName: "First name",
+      firstNamePlaceholder: "Your first name",
+      lastName: "Last name",
+      lastNamePlaceholder: "Your last name",
+      email: "E-mail",
+      emailPlaceholder: "your@email.com",
+      phone: "Phone",
+      phonePlaceholder: "+48 000 000 000",
+      message: "Message",
+      messagePlaceholder: "Describe your question...",
+      sendMessage: "Send message",
+      sending: "Sending...",
+      validationErrorTitle: "Error",
+      validationErrorDescription: "Please fill in all required fields",
+      sendErrorTitle: "Error",
+      sendErrorDescription: "There was a problem sending your message. Please try again.",
+      successModalTitle: "✅ Message sent successfully",
+      successModalDescription: "We will reply within 24 hours. Thank you!",
+      phoneTitle: "Phone",
+      addressTitle: "Address",
+      mapTitle: "Location",
+      mapPlaceholder: "Map - available soon",
+      howToFindUs: "How to find us",
+      howToFindUsSubtitle: "Biały Koral - Holiday cottages in Rusinowo",
+      mapIframeTitle: "Map - Biały Koral, Sosnowa 9, 76-107 Rusinowo",
     },
     reservation: {
       pageTitle: "Reservation",
       pageSubtitle: "Book your stay at Biały Koral",
       formTitle: "Reservation Form",
+      widgetTitle: "Reservation – RoomAdmin widget",
       firstName: "First Name",
       lastName: "Last Name",
       email: "Email",
@@ -362,6 +567,17 @@ export const translations: Record<Language, Translations> = {
       successTitle: "Thank you for your reservation!",
       successMessage: "We will contact you shortly to confirm the details of your stay.",
       sending: "Sending...",
+      benefits: [
+        "Comfortable cottages for up to 5 people",
+        "Fully equipped kitchen",
+        "Free Wi-Fi on site",
+        "600 metres from the sea",
+        "Quiet location by the forest",
+        "Air conditioning and washing machine",
+        "Dogs are welcome",
+      ],
+      stayInfoTitle: "Stay information",
+      petFee: "dog fee",
     },
     notFound: {
       title: "Page Not Found",
@@ -384,6 +600,7 @@ export const translations: Record<Language, Translations> = {
       contactUs: "Kontaktieren Sie uns",
       location: "Standort",
       languages: "Sprachen",
+      country: "Polen",
       allRightsReserved: "Alle Rechte vorbehalten.",
     },
     hero: {
@@ -459,6 +676,43 @@ export const translations: Record<Language, Translations> = {
       bookNow: "Jetzt buchen",
       contactForReservation: "Kontakt für Reservierung",
       pricingTableTitle: "Preisliste 2025",
+      rates: [
+        { period: "Ostern 01.04–07.04", price: "350 PLN" },
+        { period: "11.04–31.05", price: "280 PLN" },
+        { period: "Maiwochenende 29.04–03.05", price: "350 PLN" },
+        { period: "01.06–14.06", price: "320 PLN" },
+        { period: "15.06–28.06", price: "350 PLN" },
+        { period: "29.06–05.07", price: "450 PLN" },
+        { period: "06.07–12.07", price: "470 PLN" },
+        { period: "13.07–16.08", price: "550 PLN" },
+        { period: "17.08–31.08", price: "450 PLN" },
+        { period: "01.09–19.10", price: "270 PLN" },
+      ],
+    },
+    gallery: {
+      pageTitle: "Galerie",
+      pageSubtitle: "Sehen Sie unsere komfortablen Ferienhäuser und die schöne Umgebung in Rusinowo",
+      outsidePhotosTitle: "Fotos der Ferienhäuser",
+      insidePhotosTitle: "Innenaufnahmen",
+      noOutsidePhotos: "Fügen Sie Fotos hinzu in",
+      noInsidePhotos: "Fügen Sie Fotos hinzu in",
+      videosTitle: "Werbevideos",
+      mainVideoTitle: "Sehen Sie unsere Ferienhäuser in Aktion",
+      mainVideoDescription: "Entdecken Sie die Schönheit von Rusinowo und den Komfort unserer Ferienhäuser. Überzeugen Sie sich, warum dies der ideale Ort für Ihren Urlaub am Meer ist.",
+      mainVideoIframeTitle: "Ferienhäuser Rusinowo - Werbevideo",
+      germanVideoTitle: "Video auf Deutsch",
+      englishVideoTitle: "Video auf Englisch",
+      ukrainianVideoTitle: "Video auf Ukrainisch",
+      czechVideoTitle: "Video auf Tschechisch",
+      ctaTitle: "Überzeugt? Buchen Sie noch heute!",
+      ctaButton: "Ferienhaus buchen",
+      outsideImageAltPrefix: "Foto der Ferienhäuser",
+      insideImageAltPrefix: "Innenaufnahme",
+      previousPhoto: "Vorheriges Foto",
+      nextPhoto: "Nächstes Foto",
+      closePreview: "Vorschau schließen",
+      closePreviewTitle: "Schließen (Esc)",
+      openPreview: "Vorschau öffnen",
     },
     contact: {
       pageTitle: "Kontakt",
@@ -471,11 +725,40 @@ export const translations: Record<Language, Translations> = {
       visitUs: "Besuchen Sie uns",
       phoneHours: "Täglich von 8:00–20:00 Uhr erreichbar",
       responseTime: "Wir antworten innerhalb von 24 Stunden",
+      ctaTitle: "Stellen Sie uns eine Frage!",
+      ctaText: "Rufen Sie noch heute an und buchen Sie Ihren Traumaufenthalt!",
+      formTitle: "Schreiben Sie uns",
+      firstName: "Vorname",
+      firstNamePlaceholder: "Ihr Vorname",
+      lastName: "Nachname",
+      lastNamePlaceholder: "Ihr Nachname",
+      email: "E-Mail",
+      emailPlaceholder: "ihre@email.de",
+      phone: "Telefon",
+      phonePlaceholder: "+48 000 000 000",
+      message: "Nachricht",
+      messagePlaceholder: "Beschreiben Sie Ihre Frage...",
+      sendMessage: "Nachricht senden",
+      sending: "Wird gesendet...",
+      validationErrorTitle: "Fehler",
+      validationErrorDescription: "Bitte füllen Sie alle Pflichtfelder aus",
+      sendErrorTitle: "Fehler",
+      sendErrorDescription: "Beim Senden der Nachricht ist ein Problem aufgetreten. Bitte versuchen Sie es erneut.",
+      successModalTitle: "✅ Nachricht erfolgreich gesendet",
+      successModalDescription: "Wir antworten innerhalb von 24 Stunden. Vielen Dank!",
+      phoneTitle: "Telefon",
+      addressTitle: "Adresse",
+      mapTitle: "Standort",
+      mapPlaceholder: "Karte - bald verfügbar",
+      howToFindUs: "So finden Sie uns",
+      howToFindUsSubtitle: "Biały Koral - Ferienhäuser in Rusinowo",
+      mapIframeTitle: "Karte - Biały Koral, Sosnowa 9, 76-107 Rusinowo",
     },
     reservation: {
       pageTitle: "Reservierung",
       pageSubtitle: "Buchen Sie Ihren Aufenthalt in Biały Koral",
       formTitle: "Reservierungsformular",
+      widgetTitle: "Reservierung – RoomAdmin-Widget",
       firstName: "Vorname",
       lastName: "Nachname",
       email: "E-Mail",
@@ -492,6 +775,17 @@ export const translations: Record<Language, Translations> = {
       successMessage:
         "Wir werden uns in Kürze mit Ihnen in Verbindung setzen, um die Details Ihres Aufenthalts zu bestätigen.",
       sending: "Wird gesendet...",
+      benefits: [
+        "Komfortable Ferienhäuser für bis zu 5 Personen",
+        "Voll ausgestattete Küche",
+        "Kostenloses WLAN im Feriendorf",
+        "600 Meter vom Meer entfernt",
+        "Ruhige Lage am Wald",
+        "Klimaanlage und Waschmaschine",
+        "Aufenthalt mit Hunden möglich",
+      ],
+      stayInfoTitle: "Informationen zum Aufenthalt",
+      petFee: "Gebühr für Hund",
     },
     notFound: {
       title: "Seite nicht gefunden",
@@ -514,6 +808,7 @@ export const translations: Record<Language, Translations> = {
       contactUs: "Зв'яжіться з нами",
       location: "Місцезнаходження",
       languages: "Мови",
+      country: "Польща",
       allRightsReserved: "Всі права захищені.",
     },
     hero: {
@@ -589,6 +884,43 @@ export const translations: Record<Language, Translations> = {
       bookNow: "Забронювати зараз",
       contactForReservation: "Зв'яжіться для бронювання",
       pricingTableTitle: "Ціни 2025",
+      rates: [
+        { period: "Великдень 01.04–07.04", price: "350 PLN" },
+        { period: "11.04–31.05", price: "280 PLN" },
+        { period: "Травневі свята 29.04–03.05", price: "350 PLN" },
+        { period: "01.06–14.06", price: "320 PLN" },
+        { period: "15.06–28.06", price: "350 PLN" },
+        { period: "29.06–05.07", price: "450 PLN" },
+        { period: "06.07–12.07", price: "470 PLN" },
+        { period: "13.07–16.08", price: "550 PLN" },
+        { period: "17.08–31.08", price: "450 PLN" },
+        { period: "01.09–19.10", price: "270 PLN" },
+      ],
+    },
+    gallery: {
+      pageTitle: "Галерея",
+      pageSubtitle: "Подивіться наші комфортні будиночки та гарні околиці Русінова",
+      outsidePhotosTitle: "Фото будиночків",
+      insidePhotosTitle: "Фото інтер’єру",
+      noOutsidePhotos: "Додайте фото до",
+      noInsidePhotos: "Додайте фото до",
+      videosTitle: "Рекламні відео",
+      mainVideoTitle: "Подивіться наші будиночки в дії",
+      mainVideoDescription: "Відкрийте для себе красу Русінова та комфорт наших відпочинкових будиночків. Переконайтеся, чому це ідеальне місце для вашого відпочинку біля моря.",
+      mainVideoIframeTitle: "Відпочинкові будиночки Русіново - рекламне відео",
+      germanVideoTitle: "Відео німецькою",
+      englishVideoTitle: "Відео англійською",
+      ukrainianVideoTitle: "Відео українською",
+      czechVideoTitle: "Відео чеською",
+      ctaTitle: "Переконалися? Бронюйте вже сьогодні!",
+      ctaButton: "Забронювати будиночок",
+      outsideImageAltPrefix: "Фото будиночків",
+      insideImageAltPrefix: "Фото інтер’єру",
+      previousPhoto: "Попереднє фото",
+      nextPhoto: "Наступне фото",
+      closePreview: "Закрити перегляд",
+      closePreviewTitle: "Закрити (Esc)",
+      openPreview: "Відкрити перегляд",
     },
     contact: {
       pageTitle: "Контакт",
@@ -600,11 +932,40 @@ export const translations: Record<Language, Translations> = {
       visitUs: "Відвідайте нас",
       phoneHours: "Доступні щодня 8:00–20:00",
       responseTime: "Ми відповідаємо протягом 24 годин",
+      ctaTitle: "Поставте нам запитання!",
+      ctaText: "Зателефонуйте вже сьогодні та забронюйте свій омріяний відпочинок!",
+      formTitle: "Напишіть нам",
+      firstName: "Ім'я",
+      firstNamePlaceholder: "Ваше ім'я",
+      lastName: "Прізвище",
+      lastNamePlaceholder: "Ваше прізвище",
+      email: "E-mail",
+      emailPlaceholder: "your@email.com",
+      phone: "Телефон",
+      phonePlaceholder: "+48 000 000 000",
+      message: "Повідомлення",
+      messagePlaceholder: "Опишіть ваше запитання...",
+      sendMessage: "Надіслати повідомлення",
+      sending: "Надсилання...",
+      validationErrorTitle: "Помилка",
+      validationErrorDescription: "Будь ласка, заповніть усі обов’язкові поля",
+      sendErrorTitle: "Помилка",
+      sendErrorDescription: "Під час надсилання повідомлення виникла проблема. Спробуйте ще раз.",
+      successModalTitle: "✅ Повідомлення успішно надіслано",
+      successModalDescription: "Ми відповімо протягом 24 годин. Дякуємо!",
+      phoneTitle: "Телефон",
+      addressTitle: "Адреса",
+      mapTitle: "Місцезнаходження",
+      mapPlaceholder: "Мапа - незабаром доступна",
+      howToFindUs: "Як нас знайти",
+      howToFindUsSubtitle: "Biały Koral - відпочинкові будиночки в Русінові",
+      mapIframeTitle: "Мапа - Biały Koral, Sosnowa 9, 76-107 Rusinowo",
     },
     reservation: {
       pageTitle: "Бронювання",
       pageSubtitle: "Забронюйте своє перебування в Biały Koral",
       formTitle: "Форма бронювання",
+      widgetTitle: "Бронювання – віджет RoomAdmin",
       firstName: "Ім'я",
       lastName: "Прізвище",
       email: "Електронна пошта",
@@ -620,6 +981,17 @@ export const translations: Record<Language, Translations> = {
       successTitle: "Дякуємо за бронювання!",
       successMessage: "Ми зв'яжемося з вами найближчим часом, щоб підтвердити деталі перебування.",
       sending: "Надсилання...",
+      benefits: [
+        "Комфортні будиночки до 5 осіб",
+        "Повністю обладнана кухня",
+        "Безкоштовний Wi-Fi на території",
+        "600 метрів від моря",
+        "Тихе місце біля лісу",
+        "Кондиціонер і пральна машина",
+        "Можливість перебування з собаками",
+      ],
+      stayInfoTitle: "Інформація про перебування",
+      petFee: "плата за собаку",
     },
     notFound: {
       title: "Сторінку не знайдено",
@@ -642,6 +1014,7 @@ export const translations: Record<Language, Translations> = {
       contactUs: "Kontaktujte nás",
       location: "Poloha",
       languages: "Jazyky",
+      country: "Polsko",
       allRightsReserved: "Všechna práva vyhrazena.",
     },
     hero: {
@@ -717,6 +1090,43 @@ export const translations: Record<Language, Translations> = {
       bookNow: "Rezervovat nyní",
       contactForReservation: "Kontaktujte nás pro rezervaci",
       pricingTableTitle: "Ceník 2025",
+      rates: [
+        { period: "Velikonoce 01.04–07.04", price: "350 PLN" },
+        { period: "11.04–31.05", price: "280 PLN" },
+        { period: "Květnový prodloužený víkend 29.04–03.05", price: "350 PLN" },
+        { period: "01.06–14.06", price: "320 PLN" },
+        { period: "15.06–28.06", price: "350 PLN" },
+        { period: "29.06–05.07", price: "450 PLN" },
+        { period: "06.07–12.07", price: "470 PLN" },
+        { period: "13.07–16.08", price: "550 PLN" },
+        { period: "17.08–31.08", price: "450 PLN" },
+        { period: "01.09–19.10", price: "270 PLN" },
+      ],
+    },
+    gallery: {
+      pageTitle: "Galerie",
+      pageSubtitle: "Podívejte se na naše pohodlné rekreační chaty a krásné okolí v Rusinowě",
+      outsidePhotosTitle: "Fotografie chat",
+      insidePhotosTitle: "Fotografie interiéru",
+      noOutsidePhotos: "Přidejte fotografie do",
+      noInsidePhotos: "Přidejte fotografie do",
+      videosTitle: "Propagační videa",
+      mainVideoTitle: "Podívejte se na naše chaty v akci",
+      mainVideoDescription: "Objevte krásu Rusinowa a pohodlí našich rekreačních chat. Přesvědčte se, proč je to ideální místo pro vaši dovolenou u moře.",
+      mainVideoIframeTitle: "Rekreační chaty Rusinowo - propagační video",
+      germanVideoTitle: "Video v němčině",
+      englishVideoTitle: "Video v angličtině",
+      ukrainianVideoTitle: "Video v ukrajinštině",
+      czechVideoTitle: "Video v češtině",
+      ctaTitle: "Jste přesvědčeni? Rezervujte ještě dnes!",
+      ctaButton: "Rezervovat chatu",
+      outsideImageAltPrefix: "Fotografie chat",
+      insideImageAltPrefix: "Fotografie interiéru",
+      previousPhoto: "Předchozí fotografie",
+      nextPhoto: "Další fotografie",
+      closePreview: "Zavřít náhled",
+      closePreviewTitle: "Zavřít (Esc)",
+      openPreview: "Otevřít náhled",
     },
     contact: {
       pageTitle: "Kontakt",
@@ -729,11 +1139,40 @@ export const translations: Record<Language, Translations> = {
       visitUs: "Navštivte nás",
       phoneHours: "K dispozici denně 8:00–20:00",
       responseTime: "Odpovídáme do 24 hodin",
+      ctaTitle: "Zeptejte se nás!",
+      ctaText: "Zavolejte ještě dnes a rezervujte si svůj vysněný pobyt!",
+      formTitle: "Napište nám",
+      firstName: "Jméno",
+      firstNamePlaceholder: "Vaše jméno",
+      lastName: "Příjmení",
+      lastNamePlaceholder: "Vaše příjmení",
+      email: "E-mail",
+      emailPlaceholder: "vas@email.cz",
+      phone: "Telefon",
+      phonePlaceholder: "+48 000 000 000",
+      message: "Zpráva",
+      messagePlaceholder: "Popište svůj dotaz...",
+      sendMessage: "Odeslat zprávu",
+      sending: "Odesílání...",
+      validationErrorTitle: "Chyba",
+      validationErrorDescription: "Vyplňte prosím všechna povinná pole",
+      sendErrorTitle: "Chyba",
+      sendErrorDescription: "Při odesílání zprávy došlo k problému. Zkuste to prosím znovu.",
+      successModalTitle: "✅ Zpráva byla úspěšně odeslána",
+      successModalDescription: "Odpovíme do 24 hodin. Děkujeme!",
+      phoneTitle: "Telefon",
+      addressTitle: "Adresa",
+      mapTitle: "Poloha",
+      mapPlaceholder: "Mapa - brzy k dispozici",
+      howToFindUs: "Jak nás najít",
+      howToFindUsSubtitle: "Biały Koral - rekreační chaty v Rusinowě",
+      mapIframeTitle: "Mapa - Biały Koral, Sosnowa 9, 76-107 Rusinowo",
     },
     reservation: {
       pageTitle: "Rezervace",
       pageSubtitle: "Zarezervujte si pobyt v Biały Koral",
       formTitle: "Rezervační formulář",
+      widgetTitle: "Rezervace – widget RoomAdmin",
       firstName: "Jméno",
       lastName: "Příjmení",
       email: "E-mail",
@@ -750,6 +1189,17 @@ export const translations: Record<Language, Translations> = {
       successMessage:
         "Brzy vás kontaktujeme, abychom potvrdili podrobnosti vašeho pobytu.",
       sending: "Odesílání...",
+      benefits: [
+        "Pohodlné chaty až pro 5 osob",
+        "Plně vybavená kuchyň",
+        "Bezplatné Wi-Fi v areálu",
+        "600 metrů od moře",
+        "Klidné místo u lesa",
+        "Klimatizace a pračka",
+        "Možnost pobytu se psy",
+      ],
+      stayInfoTitle: "Informace o pobytu",
+      petFee: "poplatek za psa",
     },
     notFound: {
       title: "Stránka nenalezena",

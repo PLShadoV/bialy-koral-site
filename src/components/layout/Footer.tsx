@@ -50,7 +50,7 @@ const Footer = () => {
               <div>
                 <p>Sosnowa 9</p>
                 <p>76-107 Rusinowo</p>
-                <p>Polska</p>
+                <p>{t.footer.country}</p>
               </div>
             </div>
           </div>
