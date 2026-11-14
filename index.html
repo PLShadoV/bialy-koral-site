@@ -18,7 +18,17 @@
     <meta name="author" content="Biały Koral" />
     <meta name="keywords" content="domki letniskowe, Rusinowo, wakacje nad morzem, Bałtyk, noclegi, wypoczynek, domki nad morzem, Słowiński Park Narodowy, pobyt z psami, trasy rowerowe" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://koralrusinowo.pl/" />
+    <link rel="canonical" href="https://www.koralrusinowo.pl/" id="canonical" />
+    <meta property="og:url" content="https://www.koralrusinowo.pl/" id="og-url" />
+    <script>
+      // each subpage is its own page for Google (it used to point every page at the home page)
+      (function () {
+        var p = location.pathname.replace(/\/+$/, "") || "/";
+        var u = "https://www.koralrusinowo.pl" + p;
+        document.getElementById("canonical").href = u;
+        document.getElementById("og-url").content = u;
+      })();
+    </script>
 
     <meta property="og:title" content="Biały Koral - Domki letniskowe nad morzem w Rusinowie" />
     <meta property="og:description" content="Biały Koral to komfortowe domki letniskowe w Rusinowie nad Bałtykiem. Wypoczynek dla 5 osób, 600m od plaży, pełne wyposażenie, WiFi, klimatyzacja." />
@@ -46,7 +56,7 @@
       },
       "telephone": "+48797392903",
       "email": "info@koralrusinowo.pl",
-      "url": "https://koralrusinowo.pl",
+      "url": "https://www.koralrusinowo.pl/",
       "geo": {
         "@type": "GeoCoordinates",
         "latitude": "54.3",
