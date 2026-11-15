@@ -14,10 +14,10 @@ const PageIntro = ({ title, description, image, alt = "" }: Props) =>
         {...{ fetchpriority: "high" }}
         className="absolute inset-0 -z-20 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-primary via-primary/55 to-primary/10 md:bg-gradient-to-r md:from-primary/90 md:via-primary/45 md:to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-primary/80 via-primary/25 to-transparent md:bg-gradient-to-r md:from-primary/70 md:via-primary/20 md:to-transparent" />
       <div className="container flex min-h-[17rem] flex-col justify-end px-5 pb-9 pt-24 md:min-h-[26rem] md:pb-14">
-        <h1 className="display-title text-balance text-5xl leading-none md:text-7xl">{title}</h1>
-        <p className="mt-4 max-w-2xl text-pretty text-white/90 md:text-lg">{description}</p>
+        <h1 className="display-title text-balance text-5xl leading-none [text-shadow:0_2px_14px_rgba(8,28,76,.55)] md:text-7xl">{title}</h1>
+        <p className="mt-4 max-w-2xl text-pretty text-white/95 [text-shadow:0_1px_8px_rgba(8,28,76,.7)] md:text-lg">{description}</p>
       </div>
     </section>
   ) : (
