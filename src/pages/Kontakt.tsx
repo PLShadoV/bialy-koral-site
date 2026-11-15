@@ -12,10 +12,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { extra } from "@/i18n/extra";
 
 const Kontakt = () => {
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -101,7 +102,7 @@ const Kontakt = () => {
 
         <main>
           {/* Hero Section */}
-          <PageIntro title={t.contact.pageTitle} description={t.contact.pageSubtitle} />
+          <PageIntro title={t.contact.pageTitle} description={t.contact.pageSubtitle} image="kontakt" alt={extra[language].alt.cottages} />
 
           {/* Main Contact Section */}
           <section className="py-16 bg-background">

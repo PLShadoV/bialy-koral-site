@@ -1,5 +1,5 @@
 import YouTubeLite from "@/components/YouTubeLite";
-import { galleryAlt } from "@/i18n/extra";
+import { extra, galleryAlt } from "@/i18n/extra";
 import type { Language } from "@/i18n/translations";
 import PageIntro from "@/components/sections/PageIntro";
 import Header from "@/components/layout/Header";
@@ -138,7 +138,7 @@ const Galeria = () => {
       <Header />
 
       <main>
-        <PageIntro title={t.gallery.pageTitle} description={t.gallery.pageSubtitle} />
+        <PageIntro title={t.gallery.pageTitle} description={t.gallery.pageSubtitle} image="galeria" alt={extra[language].alt.hero} />
 
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">

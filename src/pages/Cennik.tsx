@@ -8,19 +8,20 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Calendar } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { extra } from "@/i18n/extra";
 
 const Cennik = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        <PageIntro title={t.pricing.pageTitle} description={t.pricing.pageSubtitle} />
+        <PageIntro title={t.pricing.pageTitle} description={t.pricing.pageSubtitle} image="cennik" alt={extra[language].alt.cottages} />
 
         {/* Pricing Section */}
         <section className="py-8 bg-background md:py-12">

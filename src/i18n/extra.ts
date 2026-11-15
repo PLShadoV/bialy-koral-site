@@ -27,7 +27,7 @@ export const extra: Record<Language, Extra> = {
     seo: {
       home: "Domki letniskowe w Rusinowie dla 5 osób, ok. 600 m od plaży, przy lesie. Klimatyzacja, kuchnia, Wi-Fi, grill i pobyt z psem. Sprawdź wolne terminy.",
       gallery: "Zdjęcia i filmy domków Biały Koral w Rusinowie: kuchnia z jadalnią, sypialnie, łazienka, taras, plac zabaw i teren przy lesie, ok. 600 m od morza.",
-      pricing: "Cennik domków Biały Koral w Rusinowie: cena za cały domek do 5 osób za dobę, w sezonie minimum 3 noce, pobyt z psem po wcześniejszym uzgodnieniu.",
+      pricing: "Cennik domków Biały Koral w Rusinowie: cena za cały domek do 5 osób za dobę na 2027 rok, latem minimum 7 nocy, pobyt z psem po uzgodnieniu.",
       contact: "Kontakt i dojazd do domków Biały Koral: ul. Sosnowa 9, 76-107 Rusinowo, tel. +48 797 392 903, info@koralrusinowo.pl. Do Jarosławca ok. 4 km.",
       reservation: "Zarezerwuj domek w Białym Koralu w Rusinowie. Do 5 osób w domku, zameldowanie od 15:00, wymeldowanie do 10:00, pies 15 zł za dobę.",
     },
@@ -61,7 +61,7 @@ export const extra: Record<Language, Extra> = {
     seo: {
       home: "Holiday cottages in Rusinowo for 5 guests, about 600 m from the beach by the forest. Air conditioning, kitchen, Wi-Fi, barbecue, dogs welcome.",
       gallery: "Photos and videos of Biały Koral cottages in Rusinowo: kitchen and dining area, bedrooms, bathroom, terrace, playground and grounds by the forest.",
-      pricing: "Biały Koral prices in Rusinowo: rate per night for a whole cottage for up to 5 guests, minimum 3 nights in high season, dogs by prior arrangement.",
+      pricing: "Biały Koral prices in Rusinowo: 2027 rate per night for a whole cottage for up to 5 guests, minimum 7 nights in summer, dogs by arrangement.",
       contact: "Contact and directions to Biały Koral cottages: Sosnowa 9, 76-107 Rusinowo, Poland, phone +48 797 392 903, info@koralrusinowo.pl.",
       reservation: "Book a cottage at Biały Koral in Rusinowo. Up to 5 guests per cottage, check-in from 3 pm, check-out by 10 am, dogs 15 PLN per night.",
     },
@@ -95,7 +95,7 @@ export const extra: Record<Language, Extra> = {
     seo: {
       home: "Ferienhäuser in Rusinowo für 5 Personen, ca. 600 m vom Strand am Wald. Klimaanlage, Küche, WLAN, Grill und Hunde willkommen. Freie Termine prüfen.",
       gallery: "Fotos und Videos der Ferienhäuser Biały Koral in Rusinowo: Küche mit Essplatz, Schlafzimmer, Bad, Terrasse, Spielplatz und Gelände am Wald.",
-      pricing: "Preise Biały Koral in Rusinowo: Preis pro Nacht für das ganze Haus bis 5 Personen, in der Hauptsaison mindestens 3 Nächte, Hunde nach Absprache.",
+      pricing: "Preise Biały Koral in Rusinowo: Preise 2027 pro Nacht für das ganze Haus bis 5 Personen, im Sommer mindestens 7 Nächte, Hunde nach Absprache.",
       contact: "Kontakt und Anfahrt zu den Ferienhäusern Biały Koral: Sosnowa 9, 76-107 Rusinowo, Polen, Tel. +48 797 392 903, info@koralrusinowo.pl.",
       reservation: "Ferienhaus im Biały Koral in Rusinowo buchen. Bis 5 Personen pro Haus, Check-in ab 15 Uhr, Check-out bis 10 Uhr, Hund 15 PLN pro Nacht.",
     },
@@ -129,7 +129,7 @@ export const extra: Record<Language, Extra> = {
     seo: {
       home: "Будиночки для відпочинку в Русинові на 5 осіб, бл. 600 м до пляжу, біля лісу. Кондиціонер, кухня, Wi-Fi, гриль, можна з собакою.",
       gallery: "Фото й відео будиночків Biały Koral у Русинові: кухня з їдальнею, спальні, ванна, тераса, дитячий майданчик і територія біля лісу.",
-      pricing: "Ціни Biały Koral у Русинові: вартість за весь будиночок до 5 осіб за ніч, у сезон мінімум 3 ночі, собаки за попередньою домовленістю.",
+      pricing: "Ціни Biały Koral у Русинові: ціни 2027 за весь будиночок до 5 осіб за ніч, влітку мінімум 7 ночей, собаки за домовленістю.",
       contact: "Контакти й дорога до будиночків Biały Koral: Sosnowa 9, 76-107 Rusinowo, Польща, тел. +48 797 392 903, info@koralrusinowo.pl.",
       reservation: "Забронюйте будиночок у Biały Koral у Русинові. До 5 осіб, заселення з 15:00, виїзд до 10:00, собака 15 зл за ніч.",
     },
@@ -163,7 +163,7 @@ export const extra: Record<Language, Extra> = {
     seo: {
       home: "Rekreační domky v Rusinowě pro 5 osob, asi 600 m od pláže u lesa. Klimatizace, kuchyň, Wi-Fi, gril a pobyt se psem. Ověřte volné termíny.",
       gallery: "Fotky a videa domků Biały Koral v Rusinowě: kuchyň s jídelnou, ložnice, koupelna, terasa, dětské hřiště a pozemek u lesa.",
-      pricing: "Ceník domků Biały Koral v Rusinowě: cena za celý domek pro max. 5 osob za noc, v sezóně minimálně 3 noci, psi po předchozí domluvě.",
+      pricing: "Ceník domků Biały Koral v Rusinowě: ceny 2027 za celý domek pro max. 5 osob za noc, v létě minimálně 7 nocí, psi po domluvě.",
       contact: "Kontakt a cesta k domkům Biały Koral: Sosnowa 9, 76-107 Rusinowo, Polsko, tel. +48 797 392 903, info@koralrusinowo.pl.",
       reservation: "Rezervujte si domek v Biały Koral v Rusinowě. Až 5 osob v domku, příjezd od 15:00, odjezd do 10:00, pes 15 PLN za noc.",
     },
