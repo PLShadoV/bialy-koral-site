@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -6,24 +7,24 @@ const Hero = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="relative isolate flex min-h-[32rem] items-end overflow-hidden bg-slate-900 md:min-h-[40rem]">
+    <section className="relative isolate grid overflow-hidden bg-primary text-primary-foreground lg:min-h-[min(730px,78svh)] lg:items-end">
       <img
-        src="/images/koral-hero-1200.webp"
-        srcSet="/images/koral-hero-640.webp 640w, /images/koral-hero-1200.webp 1200w"
+        src="/images/koral-widok-1440.webp"
+        srcSet="/images/koral-widok-720.webp 720w, /images/koral-widok-1440.webp 1440w, /images/koral-widok-1920.webp 1920w"
         sizes="100vw"
         alt=""
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+        className="h-[clamp(13rem,55vw,28rem)] w-full object-cover object-center lg:absolute lg:inset-0 lg:-z-20 lg:h-full"
       />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
-      <div className="container px-5 pb-10 pt-40 text-white md:pb-16">
-        <h1 className="max-w-3xl text-balance text-4xl font-bold tracking-tight md:text-6xl">{t.hero.subtitle}</h1>
-        <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-slate-100 md:text-lg">{t.hero.description}</p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Button asChild size="lg" className="min-h-11 bg-white text-slate-950 hover:bg-slate-100">
-            <Link reloadDocument to="/rezerwacja">{t.hero.bookNow}</Link>
+      <div className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-primary via-primary/60 to-transparent lg:block" />
+      <div className="container px-5 pb-10 pt-7 lg:pb-20 lg:pt-28">
+        <h1 className="display-title max-w-3xl text-balance text-[clamp(2.65rem,6vw,6rem)] leading-[.99]">{t.hero.subtitle}</h1>
+        <p className="mt-4 max-w-sm text-pretty leading-relaxed text-white/90 lg:mt-6 lg:max-w-md lg:text-lg">{t.hero.description}</p>
+        <div className="mt-6 flex flex-wrap gap-3 lg:mt-8">
+          <Button asChild variant="secondary" size="lg" className="px-4 sm:px-6">
+            <Link reloadDocument to="/rezerwacja">{t.hero.bookNow}<ArrowRight aria-hidden="true" /></Link>
           </Button>
-          <Button asChild size="lg" className="min-h-11 border border-white/70 bg-slate-950/55 text-white hover:bg-slate-950">
-            <Link reloadDocument to="/galeria">{t.nav.gallery}</Link>
+          <Button asChild size="lg" className="border border-white/60 bg-primary/60 px-4 hover:bg-primary-hover sm:px-6">
+            <Link reloadDocument to="/galeria">{t.home.viewGallery}</Link>
           </Button>
         </div>
       </div>

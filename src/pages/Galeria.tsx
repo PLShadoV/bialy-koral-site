@@ -1,3 +1,4 @@
+import PageIntro from "@/components/sections/PageIntro";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Features from "@/components/sections/Features";
@@ -7,7 +8,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState, useCallback, type TouchEventHandler } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-import heroForest from "@/assets/hero-forest.jpg";
 
 const outsideModules = import.meta.glob("@/assets/gallery/*.{jpg,jpeg,png,webp}", {
   eager: true,
@@ -134,22 +134,7 @@ const Galeria = () => {
       <Header />
 
       <main>
-        <section className="relative min-h-52 flex items-center justify-center overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${heroForest})` }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
-
-          <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
-              {t.gallery.pageTitle}
-            </h1>
-            <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
-              {t.gallery.pageSubtitle}
-            </p>
-          </div>
-        </section>
+        <PageIntro title={t.gallery.pageTitle} description={t.gallery.pageSubtitle} />
 
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">

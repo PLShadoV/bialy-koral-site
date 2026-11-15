@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Menu, X, Globe } from "lucide-react";
+import { ChevronDown, Menu, X, Globe, Waves, ArrowUpRight } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,29 +38,32 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-soft">
+    <header className="sticky top-0 z-50 border-b border-white/15 bg-primary text-primary-foreground">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-[4.25rem]">
           {/* Logo */}
-          <Link reloadDocument to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold bg-ocean-gradient bg-clip-text text-transparent">
+          <Link reloadDocument to="/" className="flex items-center gap-3">
+            <Waves aria-hidden="true" className="size-6 text-secondary" />
+            <span className="display-title whitespace-nowrap text-3xl leading-none">
               Biały Koral
-            </div>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navigation.map((item) => (
               <Link reloadDocument
                 key={item.href}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === item.href
-                    ? "text-primary"
-                    : "text-foreground"
+                aria-current={location.pathname === item.href ? "page" : undefined}
+                className={`inline-flex min-h-11 items-center gap-2 whitespace-nowrap text-sm font-medium transition-colors ${
+                  item.href === "/rezerwacja"
+                    ? "rounded-md bg-secondary px-4 text-secondary-foreground hover:bg-white"
+                    : location.pathname === item.href ? "underline underline-offset-8" : "text-white/85 hover:text-white"
                 }`}
               >
                 {item.name}
+                {item.href === "/rezerwacja" && <ArrowUpRight aria-hidden="true" className="size-4" />}
               </Link>
             ))}
 
@@ -115,7 +118,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="md:hidden min-h-11 min-w-11"
+            className="lg:hidden min-h-11 min-w-11"
             aria-label={t.nav.language === "Język" ? "Menu główne" : "Menu"}
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -126,7 +129,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-background">
+          <div className="lg:hidden max-h-[calc(100dvh-4.25rem)] overflow-y-auto border-t border-border bg-background text-foreground">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
                 <Link reloadDocument

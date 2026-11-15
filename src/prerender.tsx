@@ -52,7 +52,7 @@ async function prerender() {
       const title = escape(label + (page === "/" ? "" : " · Rusinowo") + " | Biały Koral");
       const summary = escape(description);
       const head = [
-        ...(page === "/" ? ['<link rel="preload" as="image" href="/images/koral-hero-1200.webp" imagesrcset="/images/koral-hero-640.webp 640w, /images/koral-hero-1200.webp 1200w" imagesizes="100vw" fetchpriority="high">'] : []),
+        ...(page === "/" ? ['<link rel="preload" as="image" href="/images/koral-widok-1440.webp" imagesrcset="/images/koral-widok-720.webp 720w, /images/koral-widok-1440.webp 1440w, /images/koral-widok-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">'] : []),
         `<title>${title}</title>`,
         `<meta name="description" content="${summary}">`,
         `<link rel="canonical" href="${url}">`,

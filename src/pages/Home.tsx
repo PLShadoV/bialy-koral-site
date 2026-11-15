@@ -1,7 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import Features from "@/components/sections/Features";
 import ContactSection from "@/components/sections/ContactSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,17 +23,31 @@ const Home = () => {
       <main>
         <Hero />
 
-        {/* Intro Section */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">{t.home.introTitle}</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              {t.home.introText}
-            </p>
+        <section className="container grid items-center gap-8 px-5 py-12 md:grid-cols-2 md:gap-12 md:py-20">
+          <Link reloadDocument to="/galeria" className="group relative block overflow-hidden rounded-lg">
+            <img
+              src="/images/koral-domki-1000.webp"
+              srcSet="/images/koral-domki-600.webp 600w, /images/koral-domki-1000.webp 1000w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/3] w-full object-cover"
+            />
+            <span className="absolute bottom-4 left-4 rounded-md bg-primary px-4 py-3 text-sm font-medium text-white group-hover:bg-primary-hover">
+              {t.home.viewGallery}
+            </span>
+          </Link>
+          <div className="md:order-first">
+            <h2 className="display-title text-balance text-4xl md:text-5xl">{t.features.title}</h2>
+            <p className="mt-4 max-w-xl text-pretty leading-relaxed text-muted-foreground">{t.home.introText}</p>
+            <ul className="mt-6 divide-y divide-border border-y border-border text-sm font-medium md:text-base">
+              {[t.features.capacityTitle, t.features.kitchenTitle, t.features.wifiTitle].map(item => (
+                <li key={item} className="py-3">{item}</li>
+              ))}
+            </ul>
           </div>
         </section>
-
-        <Features />
 
         {/* Pet-Friendly and Cycling Section */}
         <section className="py-16 bg-accent/30">
@@ -139,7 +152,7 @@ const Home = () => {
                 <CardContent className="p-6 text-center">
                   <a
                     href="https://www.google.com/maps/dir/?api=1&destination=Sosnowa%209%2C%2076-107%20Rusinowo"
-                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-800"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-white hover:bg-primary-hover"
                   >
                     <MapPin aria-hidden="true" className="size-5" />
                     {t.home.learnMore}

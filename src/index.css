@@ -7,49 +7,49 @@
 @layer base {
   :root {
     /* Ocean & Sky Theme */
-    --background: 210 100% 98%;
-    --foreground: 210 15% 20%;
+    --background: 42 31% 96%;
+    --foreground: 193 34% 16%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 15% 20%;
+    --card: 42 45% 99%;
+    --card-foreground: 193 34% 16%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 15% 20%;
+    --popover: 42 45% 99%;
+    --popover-foreground: 193 34% 16%;
 
     /* Ocean Blues */
-    --primary: 200 90% 45%;
+    --primary: 193 52% 16%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 200 85% 40%;
+    --primary-hover: 193 43% 24%;
 
     /* Sandy Beige */
-    --secondary: 45 25% 92%;
-    --secondary-foreground: 210 15% 25%;
+    --secondary: 39 46% 89%;
+    --secondary-foreground: 193 52% 16%;
 
     /* Soft Grays */
-    --muted: 210 20% 95%;
-    --muted-foreground: 210 15% 50%;
+    --muted: 38 29% 92%;
+    --muted-foreground: 187 13% 34%;
 
     /* Sea Foam Green */
-    --accent: 160 35% 85%;
-    --accent-foreground: 160 25% 25%;
+    --accent: 161 22% 87%;
+    --accent-foreground: 193 52% 16%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 88%;
-    --input: 210 20% 95%;
-    --ring: 200 90% 45%;
+    --border: 39 20% 81%;
+    --input: 39 20% 81%;
+    --ring: 173 35% 34%;
 
-    --radius: 0.75rem;
+    --radius: 0.625rem;
 
     /* Custom Design Tokens */
-    --ocean-gradient: linear-gradient(135deg, hsl(200, 90%, 45%), hsl(210, 85%, 55%));
-    --sky-gradient: linear-gradient(180deg, hsl(210, 100%, 98%), hsl(200, 50%, 92%));
-    --sunset-gradient: linear-gradient(135deg, hsl(35, 80%, 75%), hsl(200, 70%, 60%));
+    --ocean-gradient: linear-gradient(135deg, hsl(193 52% 16%), hsl(177 35% 26%));
+    --sky-gradient: linear-gradient(180deg, hsl(42 31% 96%), hsl(39 46% 89%));
+    --sunset-gradient: linear-gradient(135deg, hsl(193 52% 16%), hsl(177 35% 26%));
     
     /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(200, 50%, 60% / 0.15);
-    --shadow-ocean: 0 8px 32px -8px hsl(200, 80%, 50% / 0.25);
+    --shadow-soft: 0 10px 30px -20px hsl(193 52% 16% / 0.38);
+    --shadow-ocean: 0 16px 40px -24px hsl(193 52% 16% / 0.50);
     --shadow-glow: 0 0 40px hsl(200, 90%, 45% / 0.3);
 
     /* Animations */
@@ -118,6 +118,18 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: "DM Sans", system-ui, sans-serif;
   }
+
+  .display-title,
+  main h2 {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-weight: 400;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-foreground;
+  }
+
 }

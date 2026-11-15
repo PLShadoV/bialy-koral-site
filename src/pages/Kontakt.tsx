@@ -1,3 +1,4 @@
+import PageIntro from "@/components/sections/PageIntro";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,6 @@ import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import heroNature from "@/assets/hero-nature.jpg";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Kontakt = () => {
@@ -101,21 +101,7 @@ const Kontakt = () => {
 
         <main>
           {/* Hero Section */}
-          <section className="relative min-h-52 flex items-center justify-center overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${heroNature})` }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
-            <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
-                {t.contact.pageTitle}
-              </h1>
-              <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
-                {t.contact.pageSubtitle}
-              </p>
-            </div>
-          </section>
+          <PageIntro title={t.contact.pageTitle} description={t.contact.pageSubtitle} />
 
           {/* Main Contact Section */}
           <section className="py-16 bg-background">
@@ -124,7 +110,7 @@ const Kontakt = () => {
                 {/* Call to Action */}
                 <div className="text-center mb-12">
                   <Card className="bg-ocean-gradient text-white shadow-ocean">
-                    <CardContent className="p-12">
+                    <CardContent className="p-6 md:p-10">
                       <MessageCircle className="h-16 w-16 mx-auto mb-6" />
                       <h2 className="text-3xl md:text-4xl font-bold mb-6">
                         {t.contact.ctaTitle}
@@ -310,7 +296,7 @@ const Kontakt = () => {
                   <CardContent className="p-6 text-center">
                     <a
                     href="https://www.google.com/maps/dir/?api=1&destination=Sosnowa%209%2C%2076-107%20Rusinowo"
-                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-800"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-white hover:bg-primary-hover"
                   >
                     <MapPin aria-hidden="true" className="size-5" />
                     {t.home.learnMore}
