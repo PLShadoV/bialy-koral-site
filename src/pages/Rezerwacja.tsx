@@ -79,7 +79,7 @@ const Rezerwacja = () => {
               key={language}
               id={IFRAME_ID}
               title={t.reservation.widgetTitle}
-              src={`https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%2313343d%22%2C%22color_bg%22%3A%22%23FFFFFF%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=${roomAdminLanguage}`}
+              src={`https://roomadmin.pl/widget/reservation-v2/start?fh=33de84fcfbeb2f4c83aeed9c8743b881b8814129&style=%7B%22color_accent%22%3A%22%23081c4c%22%2C%22color_bg%22%3A%22%23FFFFFF%22%7D&filter=%7B%22room_type_id_in%22%3A%5B%223%22%5D%7D&lang=${roomAdminLanguage}`}
               style={{ width: "100%", minHeight: "320px", border: "none" }}
               scrolling="no"
             />

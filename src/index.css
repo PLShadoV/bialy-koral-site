@@ -8,48 +8,48 @@
   :root {
     /* Ocean & Sky Theme */
     --background: 42 31% 96%;
-    --foreground: 193 34% 16%;
+    --foreground: 222 53% 16%;
 
     --card: 42 45% 99%;
-    --card-foreground: 193 34% 16%;
+    --card-foreground: 222 53% 16%;
 
     --popover: 42 45% 99%;
-    --popover-foreground: 193 34% 16%;
+    --popover-foreground: 222 53% 16%;
 
     /* Ocean Blues */
-    --primary: 193 52% 16%;
+    --primary: 222.35294 80.95238% 16.47059%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 193 43% 24%;
+    --primary-hover: 222 65% 24%;
 
     /* Sandy Beige */
     --secondary: 39 46% 89%;
-    --secondary-foreground: 193 52% 16%;
+    --secondary-foreground: 222.35294 80.95238% 16.47059%;
 
     /* Soft Grays */
     --muted: 38 29% 92%;
-    --muted-foreground: 187 13% 34%;
+    --muted-foreground: 221 19% 34%;
 
     /* Sea Foam Green */
     --accent: 161 22% 87%;
-    --accent-foreground: 193 52% 16%;
+    --accent-foreground: 222.35294 80.95238% 16.47059%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 39 20% 81%;
     --input: 39 20% 81%;
-    --ring: 173 35% 34%;
+    --ring: 222 65% 36%;
 
     --radius: 0.625rem;
 
     /* Custom Design Tokens */
-    --ocean-gradient: linear-gradient(135deg, hsl(193 52% 16%), hsl(177 35% 26%));
+    --ocean-gradient: linear-gradient(135deg, hsl(222.35294 80.95238% 16.47059%), hsl(222 54% 28%));
     --sky-gradient: linear-gradient(180deg, hsl(42 31% 96%), hsl(39 46% 89%));
-    --sunset-gradient: linear-gradient(135deg, hsl(193 52% 16%), hsl(177 35% 26%));
+    --sunset-gradient: linear-gradient(135deg, hsl(222.35294 80.95238% 16.47059%), hsl(222 54% 28%));
     
     /* Shadows */
-    --shadow-soft: 0 10px 30px -20px hsl(193 52% 16% / 0.38);
-    --shadow-ocean: 0 16px 40px -24px hsl(193 52% 16% / 0.50);
+    --shadow-soft: 0 10px 30px -20px hsl(222.35294 80.95238% 16.47059% / 0.38);
+    --shadow-ocean: 0 16px 40px -24px hsl(222.35294 80.95238% 16.47059% / 0.50);
     --shadow-glow: 0 0 40px hsl(200, 90%, 45% / 0.3);
 
     /* Animations */
@@ -124,8 +124,9 @@
 
   .display-title,
   main h2 {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-weight: 400;
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
   }
 
   ::selection {

@@ -17,7 +17,7 @@ const Hero = () => {
       />
       <div className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-primary via-primary/60 to-transparent lg:block" />
       <div className="container px-5 pb-10 pt-7 lg:pb-20 lg:pt-28">
-        <h1 className="display-title max-w-3xl text-balance text-[clamp(2.65rem,6vw,6rem)] leading-[.99]">{t.hero.subtitle}</h1>
+        <h1 className="display-title max-w-3xl text-balance text-[clamp(2.25rem,5.6vw,5.5rem)] leading-[1.05]">{t.hero.subtitle}</h1>
         <p className="mt-4 max-w-sm text-pretty leading-relaxed text-white/90 lg:mt-6 lg:max-w-md lg:text-lg">{t.hero.description}</p>
         <div className="mt-6 flex flex-wrap gap-3 lg:mt-8">
           <Button asChild variant="secondary" size="lg" className="px-4 sm:px-6">
