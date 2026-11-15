@@ -191,10 +191,9 @@ export const translations: Record<Language, Translations> = {
       allRightsReserved: "Wszystkie prawa zastrzeżone.",
     },
     hero: {
-      subtitle: "Domki wczasowe nad morzem",
-      description:
-        "Odkryj idealne miejsce na wakacje w Rusinowie. Komfortowe domki w otoczeniu lasu, zaledwie 600 metrów od plaży Bałtyku. Ciesz się spokojem natury i bliskością morza.",
-      bookNow: "Zarezerwuj teraz",
+      subtitle: "Domki letniskowe w Rusinowie",
+      description: "Domki dla maksymalnie 5 osób przy lesie, około 600 m od plaży.",
+      bookNow: "Sprawdź dostępność",
     },
     home: {
       introTitle: "Biały Koral — Domki letniskowe nad morzem",
@@ -208,14 +207,12 @@ export const translations: Record<Language, Translations> = {
       cyclingTitle: "Rowerem nad morzem",
       cyclingText:
         "Odkryj malownicze trasy rowerowe w okolicy Rusinowa. Przejażdżki wśród sosnowych lasów, ścieżki nadmorskie i malownicze trasy łączące nasze miasteczko z sąsiednimi kurortami zapewnią niezapomniane wrażenia.",
-      cyclingText2:
-        "Region Słowińskiego Parku Narodowego oferuje kilometry bezpiecznych ścieżek rowerowych. Możesz dotrzeć do Jarosławca, Wici czy Darłowa, podziwiając po drodze unikalne krajobrazy wydm i nadmorskich łąk.",
+      cyclingText2: "Z Rusinowa można wybrać się rowerem w stronę Wici lub Jarosławca.",
       areaTitle: "Najbliższa okolica Rusinowa",
       areaText:
         "Nasze domki położone są w cichym miejscu przy lesie, który zaprasza na spokojne spacery i kontakt z naturą. Znajdujemy się w pobliżu Jarosławca i Wici, co zapewnia dostęp do dodatkowych atrakcji turystycznych i gastronomicznych.",
-      areaText2:
-        "Rusinowo to małe, spokojne miasteczko na polskim wybrzeżu Bałtyku, położone między Darłowem a Jarosławcem. Dzięki położeniu w sercu Słowińskiego Parku Narodowego, oferuje niepowtarzalny kontakt z przyrodą. W okolicy znajdziecie ruchome wydmy, jeziora nadmorskie, latarnię morską w Darłowie oraz liczne szlaki piesze i rowerowe.",
-      learnMore: "Dowiedz się więcej",
+      areaText2: "Rusinowo leży nad Bałtykiem, między Darłowem a Jarosławcem.",
+      learnMore: "Zobacz dojazd",
       equipmentTitle: "Wyposażenie domków letniskowych",
       equipmentSubtitle: "Wszystko czego potrzebujesz na komfortowy wypoczynek nad morzem",
       equipmentDescription:
@@ -349,8 +346,8 @@ export const translations: Record<Language, Translations> = {
       lastName: "Nazwisko",
       email: "E-mail",
       phone: "Telefon",
-      checkIn: "Data przyjazdu",
-      checkOut: "Data wyjazdu",
+      checkIn: "Zameldowanie od",
+      checkOut: "Wymeldowanie do",
       guests: "Liczba gości",
       pets: "Czy przyjeżdżacie ze zwierzęciem?",
       yes: "Tak",
@@ -397,10 +394,9 @@ export const translations: Record<Language, Translations> = {
       allRightsReserved: "All rights reserved.",
     },
     hero: {
-      subtitle: "Holiday Cottages by the Sea",
-      description:
-        "Discover the perfect holiday destination in Rusinowo. Comfortable cottages surrounded by forest, just 600 metres from the Baltic Sea beach. Enjoy the peace of nature and the closeness of the sea.",
-      bookNow: "Book Now",
+      subtitle: "Holiday cottages in Rusinowo",
+      description: "Cottages for up to 5 guests by the forest, about 600 m from the beach.",
+      bookNow: "Check availability",
     },
     home: {
       introTitle: "Biały Koral — Holiday Cottages by the Sea",
@@ -414,14 +410,12 @@ export const translations: Record<Language, Translations> = {
       cyclingTitle: "Cycling by the Sea",
       cyclingText:
         "Discover scenic cycling routes around Rusinowo. Rides through pine forests, coastal paths and picturesque routes connecting our village with neighbouring resorts will provide unforgettable experiences.",
-      cyclingText2:
-        "The Słowiński National Park region offers kilometres of safe cycling paths. You can reach Jarosławiec, Wici or Darłowo, admiring the unique dune landscapes and coastal meadows along the way.",
+      cyclingText2: "From Rusinowo you can cycle towards Wicie or Jarosławiec.",
       areaTitle: "The Surroundings of Rusinowo",
       areaText:
         "Our cottages are situated in a quiet spot by the forest, which invites you for peaceful walks and contact with nature. We are close to Jarosławiec and Wici, providing access to additional tourist and gastronomic attractions.",
-      areaText2:
-        "Rusinowo is a small, peaceful town on the Polish Baltic coast, located between Darłowo and Jarosławiec. Thanks to its location in the heart of Słowiński National Park, it offers a unique connection with nature. In the area you will find moving dunes, coastal lakes, a lighthouse in Darłowo and numerous hiking and cycling trails.",
-      learnMore: "Learn More",
+      areaText2: "Rusinowo is on the Baltic coast between Darłowo and Jarosławiec.",
+      learnMore: "Get directions",
       equipmentTitle: "Cottage Equipment",
       equipmentSubtitle: "Everything you need for a comfortable seaside holiday",
       equipmentDescription:
@@ -556,8 +550,8 @@ export const translations: Record<Language, Translations> = {
       lastName: "Last Name",
       email: "Email",
       phone: "Phone",
-      checkIn: "Check-in Date",
-      checkOut: "Check-out Date",
+      checkIn: "Check-in from",
+      checkOut: "Check-out by",
       guests: "Number of Guests",
       pets: "Are you bringing a pet?",
       yes: "Yes",
@@ -604,10 +598,9 @@ export const translations: Record<Language, Translations> = {
       allRightsReserved: "Alle Rechte vorbehalten.",
     },
     hero: {
-      subtitle: "Ferienhäuser am Meer",
-      description:
-        "Entdecken Sie das ideale Urlaubsziel in Rusinowo. Komfortable Ferienhäuser inmitten von Wäldern, nur 600 Meter vom Ostseestrand entfernt. Genießen Sie die Ruhe der Natur und die Nähe des Meeres.",
-      bookNow: "Jetzt buchen",
+      subtitle: "Ferienhäuser in Rusinowo",
+      description: "Ferienhäuser für bis zu 5 Personen am Wald, etwa 600 m vom Strand entfernt.",
+      bookNow: "Verfügbarkeit prüfen",
     },
     home: {
       introTitle: "Biały Koral — Ferienhäuser am Meer",
@@ -621,14 +614,12 @@ export const translations: Record<Language, Translations> = {
       cyclingTitle: "Radfahren am Meer",
       cyclingText:
         "Entdecken Sie malerische Radwege rund um Rusinowo. Fahrten durch Kiefernwälder, Küstenwege und malerische Routen verbinden unser Dorf mit den benachbarten Ferienorten.",
-      cyclingText2:
-        "Die Region des Slowinzischen Nationalparks bietet kilometerlange sichere Radwege. Sie können Jarosławiec, Wici oder Darłowo erreichen und dabei einzigartige Dünenlandschaften bewundern.",
+      cyclingText2: "Von Rusinowo aus können Sie Richtung Wicie oder Jarosławiec radeln.",
       areaTitle: "Die Umgebung von Rusinowo",
       areaText:
         "Unsere Häuser liegen an einem ruhigen Waldrand, der zu Spaziergängen und Naturerlebnissen einlädt. Wir befinden uns in der Nähe von Jarosławiec und Wici.",
-      areaText2:
-        "Rusinowo ist ein kleines, ruhiges Städtchen an der polnischen Ostseeküste zwischen Darłowo und Jarosławiec. Dank seiner Lage im Herzen des Slowinzischen Nationalparks bietet es einzigartigen Kontakt mit der Natur.",
-      learnMore: "Mehr erfahren",
+      areaText2: "Rusinowo liegt an der Ostseeküste zwischen Darłowo und Jarosławiec.",
+      learnMore: "Route planen",
       equipmentTitle: "Hausausstattung",
       equipmentSubtitle: "Alles, was Sie für einen komfortablen Strandurlaub benötigen",
       equipmentDescription:
@@ -763,8 +754,8 @@ export const translations: Record<Language, Translations> = {
       lastName: "Nachname",
       email: "E-Mail",
       phone: "Telefon",
-      checkIn: "Anreisedatum",
-      checkOut: "Abreisedatum",
+      checkIn: "Anreise ab",
+      checkOut: "Abreise bis",
       guests: "Anzahl der Gäste",
       pets: "Reisen Sie mit einem Haustier?",
       yes: "Ja",
@@ -812,10 +803,9 @@ export const translations: Record<Language, Translations> = {
       allRightsReserved: "Всі права захищені.",
     },
     hero: {
-      subtitle: "Відпочинкові будиночки біля моря",
-      description:
-        "Відкрийте для себе ідеальне місце для відпочинку в Русінові. Комфортабельні будиночки в оточенні лісу, всього за 600 метрів від пляжу Балтійського моря. Насолоджуйтесь спокоєм природи та близькістю моря.",
-      bookNow: "Забронювати зараз",
+      subtitle: "Будиночки для відпочинку в Русинові",
+      description: "Будиночки для 5 гостей біля лісу, приблизно за 600 м від пляжу.",
+      bookNow: "Перевірити наявність",
     },
     home: {
       introTitle: "Biały Koral — Відпочинкові будиночки біля моря",
@@ -829,14 +819,12 @@ export const translations: Record<Language, Translations> = {
       cyclingTitle: "Велопрогулянки біля моря",
       cyclingText:
         "Відкрийте для себе мальовничі велосипедні маршрути навколо Русінова. Прогулянки через соснові ліси, прибережні стежки та мальовничі маршрути до сусідніх курортів подарують незабутні враження.",
-      cyclingText2:
-        "Регіон Словінського національного парку пропонує кілометри безпечних велосипедних доріжок. Ви можете дістатися до Ярославця, Виці чи Дарлова, милуючись унікальними пейзажами дюн та прибережних луків.",
+      cyclingText2: "З Русинова можна поїхати велосипедом у напрямку Віце або Ярославця.",
       areaTitle: "Околиці Русінова",
       areaText:
         "Наші будиночки розташовані в тихому місці біля лісу, який запрошує на спокійні прогулянки та контакт із природою. Ми знаходимося поблизу Ярославця та Виці.",
-      areaText2:
-        "Русінів — це маленьке, спокійне містечко на польському узбережжі Балтійського моря, розташоване між Дарловом та Ярославцем. Завдяки розташуванню в серці Словінського національного парку, він пропонує унікальний контакт із природою.",
-      learnMore: "Дізнатися більше",
+      areaText2: "Русиново розташоване на Балтійському узбережжі між Дарловом і Ярославцем.",
+      learnMore: "Прокласти маршрут",
       equipmentTitle: "Обладнання будиночків",
       equipmentSubtitle: "Все необхідне для комфортного відпочинку біля моря",
       equipmentDescription:
@@ -970,8 +958,8 @@ export const translations: Record<Language, Translations> = {
       lastName: "Прізвище",
       email: "Електронна пошта",
       phone: "Телефон",
-      checkIn: "Дата заїзду",
-      checkOut: "Дата виїзду",
+      checkIn: "Заїзд з",
+      checkOut: "Виїзд до",
       guests: "Кількість гостей",
       pets: "Чи їдете з домашньою твариною?",
       yes: "Так",
@@ -1018,10 +1006,9 @@ export const translations: Record<Language, Translations> = {
       allRightsReserved: "Všechna práva vyhrazena.",
     },
     hero: {
-      subtitle: "Rekreační chaty u moře",
-      description:
-        "Objevte ideální místo pro dovolenou v Rusinowě. Pohodlné chaty obklopené lesem, pouhých 600 metrů od baltské pláže. Užívejte si klid přírody a blízkost moře.",
-      bookNow: "Rezervovat nyní",
+      subtitle: "Rekreační domky v Rusinowě",
+      description: "Domky až pro 5 osob u lesa, asi 600 m od pláže.",
+      bookNow: "Ověřit dostupnost",
     },
     home: {
       introTitle: "Biały Koral — Rekreační chaty u moře",
@@ -1035,14 +1022,12 @@ export const translations: Record<Language, Translations> = {
       cyclingTitle: "Cykloturistika u moře",
       cyclingText:
         "Objevte malebné cyklistické trasy v okolí Rusinowy. Výlety přes borové lesy, pobřežní stezky a malebné trasy spojující naši vesnici se sousedními letovišti přinesou nezapomenutelné zážitky.",
-      cyclingText2:
-        "Oblast Słowiński národního parku nabízí kilometry bezpečných cyklistických stezek. Můžete se dostat do Jarosławce, Wici nebo Darłowa a obdivovat cestou jedinečné krajiny dun.",
+      cyclingText2: "Z Rusinowa se můžete vydat na kole směrem na Wicie nebo Jarosławiec.",
       areaTitle: "Okolí Rusinowy",
       areaText:
         "Naše chaty jsou situovány na tichém místě u lesa, který vybízí k poklidným procházkám a kontaktu s přírodou. Nacházíme se poblíž Jarosławce a Wici.",
-      areaText2:
-        "Rusinowo je malé, klidné město na polském baltském pobřeží, ležící mezi Darłowem a Jarosławcem. Díky poloze v srdci Słowiński národního parku nabízí jedinečný kontakt s přírodou.",
-      learnMore: "Zjistit více",
+      areaText2: "Rusinowo leží na pobřeží Baltu mezi Darłowem a Jarosławcem.",
+      learnMore: "Naplánovat trasu",
       equipmentTitle: "Vybavení chat",
       equipmentSubtitle: "Vše, co potřebujete k pohodlné dovolené u moře",
       equipmentDescription:
@@ -1177,8 +1162,8 @@ export const translations: Record<Language, Translations> = {
       lastName: "Příjmení",
       email: "E-mail",
       phone: "Telefon",
-      checkIn: "Datum příjezdu",
-      checkOut: "Datum odjezdu",
+      checkIn: "Příjezd od",
+      checkOut: "Odjezd do",
       guests: "Počet hostů",
       pets: "Jedete se zvířetem?",
       yes: "Ano",

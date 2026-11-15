@@ -42,7 +42,7 @@ const Home = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
               <Card className="shadow-soft">
                 <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                  <img src={dogBeachImage} alt="Dog on beach" className="w-full h-full object-cover" />
+                  <img src={dogBeachImage} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-4">
@@ -58,7 +58,7 @@ const Home = () => {
 
               <Card className="shadow-soft">
                 <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                  <img src={bikeForestImage} alt="Cycling" className="w-full h-full object-cover" />
+                  <img src={bikeForestImage} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-4">
@@ -89,7 +89,7 @@ const Home = () => {
                 <p className="text-muted-foreground text-lg leading-relaxed mb-4">{t.home.areaText}</p>
                 <p className="text-muted-foreground leading-relaxed mb-6">{t.home.areaText2}</p>
                 <Button asChild variant="default">
-                  <Link to="/kontakt">{t.home.learnMore}</Link>
+                  <Link reloadDocument to="/kontakt#lokalizacja">{t.home.learnMore}</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -121,7 +121,7 @@ const Home = () => {
             </div>
             <div className="text-center">
               <Button asChild variant="default" size="lg">
-                <Link to="/galeria">{t.home.viewGallery}</Link>
+                <Link reloadDocument to="/galeria">{t.home.viewGallery}</Link>
               </Button>
             </div>
           </div>
@@ -136,17 +136,14 @@ const Home = () => {
             </div>
             <div className="max-w-4xl mx-auto">
               <Card className="shadow-soft">
-                <CardContent className="p-0">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2334.2!2d16.2!3d54.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd7a5f2a2a2a2a%3A0x1111111111111111!2sSosnowa%209%2C%2076-107%20Rusinowo!5e0!3m2!1spl!2spl!4v1234567890"
-                    width="100%"
-                    height="400"
-                    style={{ border: 0, borderRadius: "8px" }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Mapa - Biały Koral"
-                  />
+                <CardContent className="p-6 text-center">
+                  <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=Sosnowa%209%2C%2076-107%20Rusinowo"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-800"
+                  >
+                    <MapPin aria-hidden="true" className="size-5" />
+                    {t.home.learnMore}
+                  </a>
                 </CardContent>
               </Card>
               <div className="text-center mt-6">

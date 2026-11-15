@@ -1,65 +1,31 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import heroImage1 from "@/assets/herodron.jpg";
-import heroImage2 from "@/assets/gorapan.jpg";
-import heroImage3 from "@/assets/dalekowidok.jpg";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Hero = () => {
-  const [currentImage, setCurrentImage] = useState(0);
-  const [progress, setProgress] = useState(0);
   const { t } = useLanguage();
-  const images = [heroImage1, heroImage2, heroImage3];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-      setProgress(0);
-    }, 4000);
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 0;
-        return prev + 100 / (4000 / 50);
-      });
-    }, 50);
-    return () => {
-      clearInterval(interval);
-      clearInterval(progressInterval);
-    };
-  }, [images.length]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ${
-            index === currentImage ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ backgroundImage: `url(${image})` }}
-        />
-      ))}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
-      <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-        <div className="animate-float">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">Biały Koral</h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90 drop-shadow-md">{t.hero.subtitle}</p>
-          <p className="text-lg md:text-xl mb-12 opacity-80 max-w-2xl mx-auto drop-shadow-md">
-            {t.hero.description}
-          </p>
-        </div>
-        <div className="space-y-4 sm:space-y-0 sm:space-x-6 sm:flex sm:justify-center">
-          <Button asChild variant="hero" size="lg" className="text-lg px-8 py-4">
-            <Link to="/rezerwacja">{t.hero.bookNow}</Link>
+    <section className="relative isolate flex min-h-[32rem] items-end overflow-hidden bg-slate-900 md:min-h-[40rem]">
+      <img
+        src="/images/koral-hero-1200.webp"
+        srcSet="/images/koral-hero-640.webp 640w, /images/koral-hero-1200.webp 1200w"
+        sizes="100vw"
+        alt=""
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+      <div className="container px-5 pb-10 pt-40 text-white md:pb-16">
+        <h1 className="max-w-3xl text-balance text-4xl font-bold tracking-tight md:text-6xl">{t.hero.subtitle}</h1>
+        <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-slate-100 md:text-lg">{t.hero.description}</p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Button asChild size="lg" className="min-h-11 bg-white text-slate-950 hover:bg-slate-100">
+            <Link reloadDocument to="/rezerwacja">{t.hero.bookNow}</Link>
+          </Button>
+          <Button asChild size="lg" className="min-h-11 border border-white/70 bg-slate-950/55 text-white hover:bg-slate-950">
+            <Link reloadDocument to="/galeria">{t.nav.gallery}</Link>
           </Button>
         </div>
-      </div>
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20">
-        <div
-          className="h-full bg-white transition-all duration-75 ease-linear"
-          style={{ width: `${progress}%` }}
-        />
       </div>
     </section>
   );

@@ -27,7 +27,7 @@ const Kontakt = () => {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!window.location.hash) window.scrollTo(0, 0);
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -101,7 +101,7 @@ const Kontakt = () => {
 
         <main>
           {/* Hero Section */}
-          <section className="relative h-96 flex items-center justify-center overflow-hidden">
+          <section className="relative min-h-52 flex items-center justify-center overflow-hidden">
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${heroNature})` }}
@@ -287,15 +287,6 @@ const Kontakt = () => {
                       </CardContent>
                     </Card>
 
-                    {/* Map placeholder */}
-                    <Card className="shadow-soft">
-                      <CardContent className="p-8">
-                        <h3 className="text-xl font-semibold mb-4">{t.contact.mapTitle}</h3>
-                        <div className="bg-muted rounded-lg h-64 flex items-center justify-center">
-                          <p className="text-muted-foreground">{t.contact.mapPlaceholder}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
                   </div>
                 </div>
               </div>
@@ -303,7 +294,7 @@ const Kontakt = () => {
           </section>
 
           {/* Map Section */}
-          <section className="py-16 bg-accent/30">
+          <section id="lokalizacja" className="scroll-mt-20 bg-accent/30 py-12">
             <div className="container mx-auto px-4">
               <div className="text-center mb-8">
                 <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -316,17 +307,14 @@ const Kontakt = () => {
 
               <div className="max-w-4xl mx-auto">
                 <Card className="shadow-soft">
-                  <CardContent className="p-0">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2334.2!2d16.2!3d54.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd7a5f2a2a2a2a%3A0x1111111111111111!2sSosnowa%209%2C%2076-107%20Rusinowo!5e0!3m2!1spl!2spl!4v1234567890"
-                      width="100%"
-                      height="400"
-                      style={{ border: 0, borderRadius: "8px" }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title={t.contact.mapIframeTitle}
-                    />
+                  <CardContent className="p-6 text-center">
+                    <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=Sosnowa%209%2C%2076-107%20Rusinowo"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-800"
+                  >
+                    <MapPin aria-hidden="true" className="size-5" />
+                    {t.home.learnMore}
+                  </a>
                   </CardContent>
                 </Card>
 

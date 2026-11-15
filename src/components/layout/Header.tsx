@@ -14,7 +14,7 @@ import { Language } from "@/i18n/translations";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { language, setLanguage, t } = useLanguage();
+  const { language, languageHref, t } = useLanguage();
 
   const navigation = [
     { name: t.nav.home, href: "/" },
@@ -42,7 +42,7 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link reloadDocument to="/" className="flex items-center space-x-2">
             <div className="text-2xl font-bold bg-ocean-gradient bg-clip-text text-transparent">
               Biały Koral
             </div>
@@ -51,7 +51,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <Link
+              <Link reloadDocument
                 key={item.href}
                 to={item.href}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
@@ -102,9 +102,9 @@ const Header = () => {
                   <DropdownMenuItem
                     key={lang.code}
                     className={`cursor-pointer ${language === lang.code ? "font-bold text-primary" : ""}`}
-                    onClick={() => setLanguage(lang.code)}
+                    asChild
                   >
-                    {lang.code} — {lang.name}
+                    <a href={languageHref(lang.code)}>{lang.code} — {lang.name}</a>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -115,7 +115,9 @@ const Header = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="md:hidden"
+            className="md:hidden min-h-11 min-w-11"
+            aria-label={t.nav.language === "Język" ? "Menu główne" : "Menu"}
+            aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -124,10 +126,10 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-border bg-background">
+          <div className="md:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-background">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
-                <Link
+                <Link reloadDocument
                   key={item.href}
                   to={item.href}
                   className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary transition-colors"
@@ -159,15 +161,15 @@ const Header = () => {
                   {t.nav.language}
                 </div>
                 {languages.map((lang) => (
-                  <button
+                  <a
                     key={lang.code}
-                    onClick={() => { setLanguage(lang.code); setIsMenuOpen(false); }}
+                    href={languageHref(lang.code)}
                     className={`block w-full text-left px-6 py-2 text-sm hover:text-primary transition-colors ${
                       language === lang.code ? "text-primary font-bold" : "text-foreground"
                     }`}
                   >
                     {lang.code} — {lang.name}
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>

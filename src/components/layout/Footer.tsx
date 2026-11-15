@@ -3,7 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { Language } from "@/i18n/translations";
 
 const Footer = () => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, languageHref, t } = useLanguage();
 
   const languages: { code: Language; name: string }[] = [
     { code: "PL", name: "Polski" },
@@ -65,14 +65,15 @@ const Footer = () => {
             </div>
             {languages.map((lang, index) => (
               <span key={lang.code} className="text-sm">
-                <button
-                  onClick={() => setLanguage(lang.code)}
+                <a
+                  href={languageHref(lang.code)}
+                  aria-current={language === lang.code ? "page" : undefined}
                   className={`hover:text-accent transition-colors ${
                     language === lang.code ? "text-accent font-bold underline" : ""
                   }`}
                 >
                   {lang.code}
-                </button>
+                </a>
                 {index < languages.length - 1 && <span className="ml-2">|</span>}
               </span>
             ))}

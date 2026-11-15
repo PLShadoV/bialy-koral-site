@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect } from "react";
 import { Phone, CheckCircle, Clock } from "lucide-react";
-import heroCoastal from "@/assets/hero-coastal.jpg";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Language } from "@/i18n/translations";
 
 const IFRAME_ID = "ra-reservation-form-v2-619ed5b9c060e71f1bf804c9c96c29aa";
+const ROOMADMIN_ORIGIN = "https://roomadmin.pl";
 const SENDER = "reservation-form-619ed5b9c060e71f1bf804c9c96c29aa";
 
 const roomAdminLanguageMap: Record<Language, string> = {
@@ -33,8 +33,8 @@ const Rezerwacja = () => {
     if (!iframe) return;
 
     const receiver = (event: MessageEvent) => {
-      if (!event.data?.sender || event.data.sender !== SENDER) return;
-      if (event.data.height && iframe) {
+      if (event.origin !== ROOMADMIN_ORIGIN || event.source !== iframe.contentWindow || event.data?.sender !== SENDER) return;
+      if (Number.isFinite(event.data.height) && event.data.height > 0) {
         iframe.style.height = `${event.data.height + 10}px`;
       }
       if (event.data.event?.name === "widget.scrollup.requested") {
@@ -47,7 +47,7 @@ const Rezerwacja = () => {
       try {
         iframe.contentWindow?.postMessage(
           { location: window.location.toString(), setup: { autoHeight: true, senderName: SENDER } },
-          "*"
+          ROOMADMIN_ORIGIN
         );
       } catch {}
     };
@@ -65,20 +65,16 @@ const Rezerwacja = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <section className="relative h-96 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroCoastal})` }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">{t.reservation.pageTitle}</h1>
-          <p className="text-xl opacity-90">{t.reservation.pageSubtitle}</p>
-        </div>
-      </section>
-
-      <main className="py-16">
-        <div className="container mx-auto px-4 max-w-6xl space-y-12">
-          <div className="bg-white rounded-xl border border-primary/20 p-4 md:p-6">
-            <h2 className="text-2xl font-semibold text-center mb-4">{t.reservation.formTitle}</h2>
-            <p className="text-center text-muted-foreground mb-6">{t.reservation.pageSubtitle}</p>
+      <main className="py-8 md:py-12">
+        <div className="container mx-auto max-w-6xl space-y-8 px-4">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight md:text-5xl">{t.reservation.pageTitle}</h1>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <a className="underline underline-offset-4" href="tel:+48797392903">+48 797 392 903</a>
+              <a className="underline underline-offset-4" href="mailto:info@koralrusinowo.pl">info@koralrusinowo.pl</a>
+            </div>
+          </div>
+          <div className="rounded-xl border border-border bg-white p-2 md:p-4">
             <iframe
               key={language}
               id={IFRAME_ID}

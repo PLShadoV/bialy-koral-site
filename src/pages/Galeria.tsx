@@ -21,6 +21,8 @@ type ImgEntry = {
   id: number;
   src: string;
   alt: string;
+  thumbnail: string;
+  thumbnailSmall: string;
 };
 
 const makeImages = (
@@ -32,12 +34,15 @@ const makeImages = (
       (mod as { default?: string }).default ?? (mod as unknown as string);
 
     const filename = path.split("/").pop() || `photo-${idx + 1}`;
-    const name = filename.replace(/\.[^.]+$/, "").replace(/[-_]/g, " ");
+    const folder = path.includes("/inside/") ? "inside" : "outside";
+    const stem = `/images/gallery/${folder}/${filename}`;
 
     return {
       id: idx + 1,
       src: url,
-      alt: `${prefix}: ${name}`,
+      alt: prefix,
+      thumbnail: `${stem}-640.webp`,
+      thumbnailSmall: `${stem}-360.webp`,
     };
   });
 
@@ -129,7 +134,7 @@ const Galeria = () => {
       <Header />
 
       <main>
-        <section className="relative h-96 flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-52 flex items-center justify-center overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${heroForest})` }}
@@ -254,7 +259,7 @@ const Galeria = () => {
             </h2>
 
             <Button asChild variant="reserve" size="lg">
-              <Link to="/rezerwacja">{t.gallery.ctaButton}</Link>
+              <Link reloadDocument to="/rezerwacja">{t.gallery.ctaButton}</Link>
             </Button>
           </div>
         </section>
@@ -354,7 +359,9 @@ const GalleryGrid = ({ images, startIndex, openAt, openPreviewLabel, className =
         aria-label={`${openPreviewLabel}: ${image.alt}`}
       >
         <img
-          src={image.src}
+          src={image.thumbnail}
+          srcSet={`${image.thumbnailSmall} 360w, ${image.thumbnail} 640w`}
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
           alt={image.alt}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:will-change-transform"
           loading="lazy"

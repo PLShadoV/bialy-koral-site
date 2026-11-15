@@ -59,7 +59,7 @@ const ContactSection = () => {
 
           <div className="text-center">
             <Button asChild variant="reserve" size="lg">
-              <Link to="/kontakt">{t.contact.emailUs}</Link>
+              <Link reloadDocument to="/kontakt">{t.contact.emailUs}</Link>
             </Button>
           </div>
         </div>

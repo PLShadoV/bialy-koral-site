@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { Calendar, Banknote } from "lucide-react";
-import heroBeach from "@/assets/hero-beach.jpg";
+import { Calendar } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Cennik = () => {
@@ -20,38 +19,31 @@ const Cennik = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        {/* Hero Section */}
-        <section className="relative h-96 flex items-center justify-center overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${heroBeach})` }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
-          <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
-              {t.pricing.pageTitle}
-            </h1>
-            <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
-              {t.pricing.pageSubtitle}
-            </p>
-          </div>
+        <section className="bg-slate-900 px-4 py-10 text-center text-white md:py-14">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">{t.pricing.pageTitle}</h1>
+          <p className="mx-auto mt-3 max-w-xl text-slate-100">{t.pricing.pageSubtitle}</p>
         </section>
 
         {/* Pricing Section */}
-        <section className="py-16 bg-background">
+        <section className="py-8 bg-background md:py-12">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold text-primary text-center mb-8">
+              <h2 className="whitespace-nowrap text-xl font-bold tabular-nums text-slate-900 text-center mb-4">
                 {t.pricing.pricingTableTitle}
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="mb-6 text-center">
+                <Button asChild size="lg" className="bg-slate-900 text-white hover:bg-slate-800">
+                  <Link reloadDocument to="/rezerwacja">{t.hero.bookNow}</Link>
+                </Button>
+              </div>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 {t.pricing.rates.map((item, index) => (
                   <Card
                     key={`${item.period}-${index}`}
-                    className="shadow-soft hover:shadow-ocean transition-all duration-300 hover:transform hover:scale-105"
+                    className="shadow-soft"
                   >
-                    <CardContent className="p-8">
-                      <div className="flex items-center justify-between mb-6">
+                    <CardContent className="p-4 md:p-5">
+                      <div className="flex items-center justify-between gap-3">
                         <div className="flex items-center gap-3">
                           <div className="bg-ocean-gradient p-2 rounded-full">
                             <Calendar className="h-5 w-5 text-white" />
@@ -63,14 +55,10 @@ const Cennik = () => {
                         </div>
                         <div className="text-right">
                           <div className="flex items-center gap-2">
-                            <Banknote className="h-5 w-5 text-primary" />
-                            <span className="text-2xl font-bold text-primary">{item.price}</span>
+                            <span className="whitespace-nowrap text-xl font-bold tabular-nums text-slate-900">{item.price}</span>
                           </div>
                         </div>
                       </div>
-                      <Button asChild variant="reserve" className="w-full">
-                        <Link to="/rezerwacja">{t.pricing.bookNow}</Link>
-                      </Button>
                     </CardContent>
                   </Card>
                 ))}
