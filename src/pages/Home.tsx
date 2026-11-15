@@ -6,9 +6,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { PawPrint, Bike, Tv, Navigation, Wifi, AirVent, WashingMachine, ChefHat, MapPin, Utensils } from "lucide-react";
+import { PawPrint, Bike, Tv, Navigation, Star, Wifi, AirVent, WashingMachine, ChefHat, MapPin, Utensils } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { credits, extra } from "@/i18n/extra";
+import { credits, extra, googleProfile, googleRating, reviews, reviewsText } from "@/i18n/extra";
 
 const amenityIcons = [Tv, Wifi, Utensils, AirVent, WashingMachine, Utensils, ChefHat, Wifi];
 
@@ -84,6 +84,34 @@ const Home = () => {
                 </span>
               </Link>
             ))}
+          </div>
+        </section>
+
+        {/* Guest reviews (round 2): verbatim 5-star Google reviews */}
+        <section className="bg-accent/30 py-16">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto mb-8 flex max-w-6xl flex-wrap items-end justify-between gap-4">
+              <div>
+                <h2 className="display-title text-balance text-3xl md:text-4xl">{reviewsText[language].title}</h2>
+                <p className="mt-3 flex flex-wrap items-center gap-2 text-muted-foreground">
+                  <span className="flex text-amber-500" aria-hidden="true">{[0, 1, 2, 3, 4].map(i => <Star key={i} className="size-5 fill-current" />)}</span>
+                  <span><strong className="text-foreground">{googleRating.value}</strong> / 5 · {googleRating.count} {reviewsText[language].rating}</span>
+                  {reviewsText[language].original && <span className="text-sm">· {reviewsText[language].original}</span>}
+                </p>
+              </div>
+              <a href={googleProfile} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center rounded-md border border-primary px-4 text-sm font-medium text-primary hover:bg-primary hover:text-white">
+                {reviewsText[language].all}
+              </a>
+            </div>
+            <div className="mx-auto max-w-6xl columns-1 gap-6 md:columns-2 lg:columns-3">
+              {reviews.map(review => (
+                <figure key={review.name} lang="pl" className="mb-6 break-inside-avoid rounded-lg border border-border bg-card p-6 shadow-soft">
+                  <div className="flex text-amber-500" aria-label="5/5">{[0, 1, 2, 3, 4].map(i => <Star key={i} aria-hidden="true" className="size-4 fill-current" />)}</div>
+                  <blockquote className="mt-3 text-pretty leading-relaxed text-foreground/90">„{review.text}”</blockquote>
+                  <figcaption className="mt-4 text-sm font-semibold text-primary">{review.name} · Google</figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
         </section>
 

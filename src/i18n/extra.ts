@@ -205,3 +205,22 @@ const galleryAlts: Record<Language, string[]> = {
   CS: ["Rekreační domky a trávník u lesa", "Bílý domek s terasou", "Pískoviště před domky", "Cesta podél domků", "Areál z dronu shora", "Domky a hřiště z dronu", "Dětské hřiště se skluzavkami", "Kuchyň s jídelnou", "Ložnice s manželskou postelí", "Ložnice se dvěma lůžky", "Obývací pokoj s pohovkou a TV", "Koupelna se sprchou", "Ručníky na posteli"],
 };
 export const galleryAlt = (language: Language, file: string) => galleryAlts[language][galleryFiles.indexOf(file)] ?? "";
+
+// Guest reviews (owner 2026-11-15: "take only the good 5-star ones" from the Google profile).
+// Verbatim Polish originals, 5/5 each, read from Google Maps on 2026-11-15; names shortened to first name + initial.
+export const googleProfile = "https://www.google.com/maps?cid=6782506020556822561";
+export const googleRating = { value: "5,0", count: 39 };
+export const reviews = [
+  { name: "Agata K.", text: "Świetnie urządzone domki przy samym lesie - cisza, spokój, piękna natura. Do plaży 10-15 minut spacerkiem przez las. Możliwość z przyjazdu z pieskiem - wspaniale! Domki bardzo dobrze wyposażone - są wszystkie potrzebne rzeczy i sprzęty. Miłym zaskoczeniem była zmywarka, pralka i klimatyzacja w domku. Dodatkowo dostępne rowery i akcesoria plażowe. Jesteśmy bardzo zadowoleni z pobytu, polecamy!" },
+  { name: "Milena L.", text: "Bardzo jesteśmy zadowoleni z pobytu! Domek znajduje się w świetnej lokalizacji – blisko morza, co jest ogromnym plusem. Właściciele są bardzo sympatyczni, pomocni i życzliwi. Panuje tutaj miła, spokojna atmosfera, idealna na odpoczynek od codziennego pośpiechu. Cisza, spokój i cudowny szum morza sprawiają, że można naprawdę się zrelaksować. Z przyjemnością wrócimy tutaj ponownie. Serdecznie polecamy! ❤️" },
+  { name: "Ka E.", text: "Bardzo dobrze wyposażony domek, czysty i przyjemnie urządzony. Gospodarze serdeczni i pomocni. Jeśli ktoś potrzebuje wypoczynku na nie zatłoczonej plaży, wystarczy krótki spacer przez las. Do dyspozycji gości rowery - to dodatkowy atut. Serdecznie polecam." },
+  { name: "Zofia T.", text: "Biały Koral – jak zawsze wracamy od Was zachwyceni! Choć pogoda w tym roku bywała kapryśna, u Was wypoczęliśmy po prostu genialnie. To urokliwe miejsce w pięknej lokalizacji, z dala od zgiełku, ma w sobie coś magicznego. Same domki są super – czyste, świetnie wyposażone i niezwykle przytulne. Mimo że byliśmy u Was już kolejny raz, to miejsce nigdy nam się nie nudzi! Szkoda tylko, że czas u Was ucieka tak niemiłosiernie szybko. Jeśli tylko zdrowie dopisze, na pewno wrócimy tu znowu. Dziękujemy za wszystko i do zobaczenia! 👋❤️" },
+  { name: "Kasia K.", text: "Bardzo ładnie urządzony ośrodek. W pobliżu las, natura, cisza, jednocześnie blisko do dobrze zaopatrzonego sklepu. Domki zadbane, w pelni wyposażone, bardzo czysto. Właściciel uprzemy i bardzo pomocny. Dojście nad morze uroczą leśną scieżką, spacerem ok 10min. Polecam serdecznie." },
+];
+export const reviewsText: Record<Language, { title: string; rating: string; all: string; original: string }> = {
+  PL: { title: "Co mówią goście", rating: "opinii w Google", all: "Wszystkie opinie w Google", original: "" },
+  EN: { title: "What our guests say", rating: "Google reviews", all: "All reviews on Google", original: "Original reviews in Polish" },
+  DE: { title: "Das sagen unsere Gäste", rating: "Google-Bewertungen", all: "Alle Bewertungen auf Google", original: "Originalbewertungen auf Polnisch" },
+  UA: { title: "Що кажуть гості", rating: "відгуків у Google", all: "Усі відгуки в Google", original: "Оригінальні відгуки польською" },
+  CS: { title: "Co říkají hosté", rating: "recenzí na Google", all: "Všechny recenze na Google", original: "Původní recenze v polštině" },
+};
