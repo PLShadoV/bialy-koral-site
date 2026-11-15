@@ -104,8 +104,8 @@ const Home = () => {
               </a>
             </div>
             <div className="mx-auto max-w-6xl columns-1 gap-6 md:columns-2 lg:columns-3">
-              {reviews.map(review => (
-                <figure key={review.name} lang="pl" className="mb-6 break-inside-avoid rounded-lg border border-border bg-card p-6 shadow-soft">
+              {reviews.map((review, i) => (
+                <figure key={review.name} lang="pl" className={`${i >= 3 ? "hidden md:block " : ""}mb-6 break-inside-avoid rounded-lg border border-border bg-card p-6 shadow-soft`}>
                   <div className="flex text-amber-500" aria-label="5/5">{[0, 1, 2, 3, 4].map(i => <Star key={i} aria-hidden="true" className="size-4 fill-current" />)}</div>
                   <blockquote className="mt-3 text-pretty leading-relaxed text-foreground/90">„{review.text}”</blockquote>
                   <figcaption className="mt-4 text-sm font-semibold text-primary">{review.name} · Google</figcaption>
