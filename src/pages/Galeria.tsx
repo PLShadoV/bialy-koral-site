@@ -1,3 +1,6 @@
+import YouTubeLite from "@/components/YouTubeLite";
+import { galleryAlt } from "@/i18n/extra";
+import type { Language } from "@/i18n/translations";
 import PageIntro from "@/components/sections/PageIntro";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -27,7 +30,8 @@ type ImgEntry = {
 
 const makeImages = (
   modules: Record<string, unknown>,
-  prefix: string
+  prefix: string,
+  language: Language
 ): ImgEntry[] =>
   Object.entries(modules).map(([path, mod], idx) => {
     const url =
@@ -40,7 +44,7 @@ const makeImages = (
     return {
       id: idx + 1,
       src: url,
-      alt: prefix,
+      alt: galleryAlt(language, filename) ? `${galleryAlt(language, filename)} · Biały Koral` : prefix,
       thumbnail: `${stem}-640.webp`,
       thumbnailSmall: `${stem}-360.webp`,
     };
@@ -51,16 +55,16 @@ const Galeria = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const outsideImages = useMemo(
-    () => makeImages(outsideModules, t.gallery.outsideImageAltPrefix),
-    [t.gallery.outsideImageAltPrefix]
+    () => makeImages(outsideModules, t.gallery.outsideImageAltPrefix, language),
+    [t.gallery.outsideImageAltPrefix, language]
   );
 
   const insideImages = useMemo(
-    () => makeImages(insideModules, t.gallery.insideImageAltPrefix),
-    [t.gallery.insideImageAltPrefix]
+    () => makeImages(insideModules, t.gallery.insideImageAltPrefix, language),
+    [t.gallery.insideImageAltPrefix, language]
   );
 
   const galleryImages = useMemo(
@@ -194,17 +198,7 @@ const Galeria = () => {
                     {t.gallery.mainVideoDescription}
                   </p>
 
-                  <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ paddingBottom: "56.25%" }}>
-                    <iframe
-                      loading="lazy"
-                      className="absolute top-0 left-0 w-full h-full"
-                      src="https://www.youtube.com/embed/JNhcOOIwQmg"
-                      title={t.gallery.mainVideoIframeTitle}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
+                  <YouTubeLite src="https://www.youtube.com/embed/JNhcOOIwQmg" title={t.gallery.mainVideoIframeTitle} />
                 </div>
               </div>
 
@@ -369,17 +363,7 @@ const VideoCard = ({ title, src, iframeTitle }: VideoCardProps) => (
   <div className="bg-card rounded-lg p-6 shadow-soft">
     <h3 className="text-xl font-semibold mb-4 text-center">{title}</h3>
 
-    <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ paddingBottom: "56.25%" }}>
-      <iframe
-        loading="lazy"
-        className="absolute top-0 left-0 w-full h-full"
-        src={src}
-        title={iframeTitle}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    </div>
+    <YouTubeLite src={src} title={iframeTitle} />
   </div>
 );
 

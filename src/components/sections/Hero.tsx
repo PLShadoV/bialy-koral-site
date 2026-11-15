@@ -2,17 +2,21 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { extra } from "@/i18n/extra";
 
 const Hero = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section className="relative isolate grid overflow-hidden bg-primary text-primary-foreground lg:min-h-[min(730px,78svh)] lg:items-end">
       <img
         src="/images/koral-widok-1440.webp"
-        srcSet="/images/koral-widok-720.webp 720w, /images/koral-widok-1440.webp 1440w, /images/koral-widok-1920.webp 1920w"
+        srcSet="/images/koral-widok-720.webp 720w, /images/koral-widok-960.webp 960w, /images/koral-widok-1440.webp 1440w, /images/koral-widok-1920.webp 1920w"
         sizes="100vw"
-        alt=""
+        alt={extra[language].alt.hero}
+        width={1440}
+        height={1080}
+        {...{ fetchpriority: "high" }}
         className="h-[clamp(13rem,55vw,28rem)] w-full object-cover object-center lg:absolute lg:inset-0 lg:-z-20 lg:h-full"
       />
       <div className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-primary via-primary/60 to-transparent lg:block" />

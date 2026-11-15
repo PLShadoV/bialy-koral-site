@@ -5,6 +5,7 @@ import { loadPage } from "./pages/loadPage";
 import App from "./App";
 import { localeBase, localeCodes, localizedPath, pages } from "./i18n/routes";
 import { translations, type Language } from "./i18n/translations";
+import { extra } from "./i18n/extra";
 
 const origin = "https://www.koralrusinowo.pl";
 const photo = origin + "/images/bialy-koral.jpg";
@@ -18,7 +19,8 @@ const business = {
   "@id": origin + "/#bialy-koral",
   name: "Biały Koral",
   url: origin + "/",
-  image: photo,
+  image: [photo, origin + "/images/koral-widok-1440.webp", origin + "/images/wnetrza/kuchnia-800.webp",
+    origin + "/images/wnetrza/sypialnia-800.webp", origin + "/images/wnetrza/salon-800.webp", origin + "/images/wnetrza/lazienka-800.webp"],
   telephone: "+48797392903",
   email: "info@koralrusinowo.pl",
   address: {
@@ -28,7 +30,12 @@ const business = {
     addressLocality: "Rusinowo",
     addressCountry: "PL",
   },
-  amenityFeature: ["WiFi", "Air Conditioning", "Pet Friendly"].map(name => ({
+  geo: { "@type": "GeoCoordinates", latitude: 54.51962, longitude: 16.51101 },
+  hasMap: "https://www.google.com/maps/search/?api=1&query=Sosnowa%209%2C%2076-107%20Rusinowo",
+  checkinTime: "15:00",
+  checkoutTime: "10:00",
+  petsAllowed: true,
+  amenityFeature: ["WiFi", "Air Conditioning", "Pet Friendly", "Kitchen", "Washing machine", "Dishwasher", "Barbecue grill", "Free parking", "Playground"].map(name => ({
     "@type": "LocationFeatureSpecification", name, value: true,
   })),
 };
@@ -39,11 +46,11 @@ async function prerender() {
   for (const language of languages) {
     const t = translations[language];
     const metadata = [
-      [t.hero.subtitle, t.hero.description],
-      [t.gallery.pageTitle, t.gallery.pageSubtitle],
-      [t.pricing.pageTitle, t.pricing.pageSubtitle],
-      [t.contact.pageTitle, t.contact.pageSubtitle],
-      [t.reservation.pageTitle, t.reservation.pageSubtitle],
+      [t.hero.subtitle, extra[language].seo.home],
+      [t.gallery.pageTitle, extra[language].seo.gallery],
+      [t.pricing.pageTitle, extra[language].seo.pricing],
+      [t.contact.pageTitle, extra[language].seo.contact],
+      [t.reservation.pageTitle, extra[language].seo.reservation],
     ];
     for (const [index, page] of pages.entries()) {
       const pathname = localizedPath(language, page);
@@ -52,7 +59,7 @@ async function prerender() {
       const title = escape(label + (page === "/" ? "" : " · Rusinowo") + " | Biały Koral");
       const summary = escape(description);
       const head = [
-        ...(page === "/" ? ['<link rel="preload" as="image" href="/images/koral-widok-1440.webp" imagesrcset="/images/koral-widok-720.webp 720w, /images/koral-widok-1440.webp 1440w, /images/koral-widok-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">'] : []),
+        ...(page === "/" ? ['<link rel="preload" as="image" href="/images/koral-widok-1440.webp" imagesrcset="/images/koral-widok-720.webp 720w, /images/koral-widok-960.webp 960w, /images/koral-widok-1440.webp 1440w, /images/koral-widok-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">'] : []),
         `<title>${title}</title>`,
         `<meta name="description" content="${summary}">`,
         `<link rel="canonical" href="${url}">`,
@@ -64,7 +71,12 @@ async function prerender() {
         `<meta property="og:description" content="${summary}">`,
         `<meta property="og:image" content="${photo}">`,
         `<meta name="twitter:card" content="summary_large_image">`,
-        ...(page === "/" ? [`<script type="application/ld+json">${JSON.stringify(business)}</script>`] : []),
+        ...(page === "/" ? [`<script type="application/ld+json">${JSON.stringify(business)}</script>`] : [
+          `<script type="application/ld+json">${JSON.stringify({
+            "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Biały Koral", item: origin + localizedPath(language, "/") },
+              { "@type": "ListItem", position: 2, name: label, item: url },
+            ] })}</script>`]),
       ].join("\n");
       const Page = await loadPage(pathname);
       const body = renderToString(<StaticRouter basename={localeBase(language)} location={pathname}><App language={language} Page={Page} /></StaticRouter>);

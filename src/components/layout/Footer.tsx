@@ -1,4 +1,6 @@
-import { Mail, Phone, MapPin, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, CalendarCheck } from "lucide-react";
+import { extra } from "@/i18n/extra";
+import { localizedPath } from "@/i18n/routes";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Language } from "@/i18n/translations";
 
@@ -14,7 +16,15 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-primary pb-20 text-primary-foreground md:pb-0">
+      <nav aria-label={extra[language].bar.book} className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-white/15 bg-primary/95 px-3 pb-[max(0.6rem,env(safe-area-inset-bottom))] pt-2.5 backdrop-blur md:hidden">
+        <a href="tel:+48797392903" className="flex min-h-12 items-center justify-center gap-2 rounded-md border border-white/40 text-sm font-semibold text-white">
+          <Phone aria-hidden="true" className="h-4 w-4" />{extra[language].bar.call}
+        </a>
+        <a href={localizedPath(language, "/rezerwacja")} className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-secondary text-sm font-semibold text-secondary-foreground">
+          <CalendarCheck aria-hidden="true" className="h-4 w-4" />{extra[language].bar.book}
+        </a>
+      </nav>
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Contact Information */}

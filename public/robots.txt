@@ -1,16 +1,8 @@
-User-agent: Googlebot
+# Wyszukiwarki AI (odpowiedzi z linkiem do strony) — mile widziane
+User-agent: OAI-SearchBot
 Allow: /
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: *
+User-agent: PerplexityBot
 Allow: /
 
 Sitemap: https://www.koralrusinowo.pl/sitemap.xml
