@@ -29,7 +29,7 @@ const Home = () => {
         <Hero />
 
         <section className="container grid items-center gap-8 px-5 py-12 md:grid-cols-2 md:gap-12 md:py-20">
-          <Link reloadDocument to="/galeria" className="group relative block overflow-hidden rounded-lg">
+          <Link reloadDocument to="/galeria" className="group relative block overflow-hidden rounded-lg bg-muted">
             <img
               src="/images/koral-domki-1000.webp"
               srcSet="/images/koral-domki-600.webp 600w, /images/koral-domki-1000.webp 1000w"
@@ -67,7 +67,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
             {(["kuchnia", "sypialnia", "salon", "lazienka"] as const).map((name, i) => (
-              <Link reloadDocument to="/galeria" key={name} className="group relative block overflow-hidden rounded-lg">
+              <Link reloadDocument to="/galeria" key={name} className="group relative block overflow-hidden rounded-lg bg-muted">
                 <img
                   src={`/images/wnetrza/${name}-480.webp`}
                   srcSet={`/images/wnetrza/${name}-480.webp 480w, /images/wnetrza/${name}-800.webp 800w`}
